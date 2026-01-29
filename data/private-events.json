@@ -1,0 +1,18 @@
+{
+  "consumedIds": [
+    "local:kpi-pass:demo-1"
+  ],
+  "signals": {
+    "dao:kpi:passed": true
+  },
+  "events": [
+    {
+      "kind": "localBooleanSignal",
+      "id": "local:kpi-pass:demo-1",
+      "signalKey": "dao:kpi:passed",
+      "expectedYes": true,
+      "question": "Will the private DAO KPI be PASSED by the deadline (private signal)?",
+      "endTimeSeconds": 0
+    }
+  ]
+}

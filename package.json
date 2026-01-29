@@ -1,0 +1,29 @@
+{
+  "name": "shadowmarkets-ai",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "ShadowMarkets AI — private & agent-based prediction markets using PNP SDK on Solana",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "create-market": "tsx scripts/create-market.ts",
+    "seed-liquidity": "tsx scripts/seed-liquidity.ts",
+    "settle-market": "tsx scripts/settle-market.ts",
+    "run:market-agent": "tsx scripts/run-market-agent.ts",
+    "run:oracle-agent": "tsx scripts/run-oracle-agent.ts",
+    "mint-token": "tsx scripts/mint-token/create-spl-token.ts"
+  },
+  "dependencies": {
+    "@solana/web3.js": "^1.98.4",
+    "@solana/spl-token": "^0.4.9",
+    "dotenv": "^16.4.7",
+    "pnp-sdk": "latest"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.10",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}
+
