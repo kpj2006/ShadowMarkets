@@ -42,7 +42,7 @@ INITIAL_LIQUIDITY_BASE_UNITS=100000  # 0.1 USDC (6 decimals)
 MARKET_DURATION_SECONDS=300          # 5 minutes for demo
 
 # Privacy Source (Option A: GitHub)
-GITHUB_TOKEN=ghp_your_token_here
+GITHUB_TOKEN=ghp_your_token_here     # See GitHub Token Setup section below
 GITHUB_OWNER=your_username
 GITHUB_REPO=your_private_repo
 
@@ -62,7 +62,79 @@ npm run create-market -- --dry-run  # Shows your pubkey
 solana airdrop 2 YOUR_WALLET_ADDRESS --url devnet
 ```
 
-#### 4. Get Collateral Tokens
+#### 4. GitHub Token Setup (If Using Private Repo)
+
+**Creating a GitHub Personal Access Token:**
+
+1. **Go to GitHub Settings**
+   - Visit: https://github.com/settings/tokens
+   - Click "Generate new token" → "Generate new token (classic)"
+
+2. **Configure Token:**
+   - **Note**: `ShadowMarkets AI Oracle Access`
+   - **Expiration**: 90 days (or custom)
+   
+3. **Select Required Permissions (Scopes):**
+
+   ✅ **For Private Repositories:**
+   ```
+   ☑ repo (Full control of private repositories)
+     ├─ repo:status      (Access commit status)
+     ├─ repo_deployment  (Access deployment status)
+     ├─ public_repo      (Access public repositories)
+     └─ repo:invite      (Access repository invitations)
+   ```
+   
+   ✅ **For Public Repositories (Minimum):**
+   ```
+   ☑ public_repo        (Access public repositories)
+   ☑ read:org           (Read org data - if org repo)
+   ```
+
+4. **Why These Permissions?**
+   - `repo` (private): Allows reading issues, PRs, and state from private repos
+   - `public_repo`: Allows reading from public repos
+   - `read:org`: Needed if repo is under an organization
+
+5. **Copy Token:**
+   - Click "Generate token"
+   - **⚠️ Copy immediately!** You won't see it again
+   - Paste into `.env` as `GITHUB_TOKEN=ghp_...`
+
+6. **Test Token:**
+   ```bash
+   # Verify token works
+   curl -H "Authorization: token YOUR_TOKEN" \
+     https://api.github.com/repos/OWNER/REPO/issues
+   
+   # Should return JSON array of issues
+   ```
+
+7. **Security Best Practices:**
+   - ✅ Never commit `.env` to git (already in `.gitignore`)
+   - ✅ Use minimal permissions needed
+   - ✅ Set expiration date
+   - ✅ Rotate tokens regularly
+   - ✅ Revoke if compromised: https://github.com/settings/tokens
+
+**Alternative: Fine-Grained Personal Access Tokens (Beta)**
+
+GitHub now offers more granular permissions:
+1. Go to: https://github.com/settings/tokens?type=beta
+2. Click "Generate new token"
+3. **Repository access**: Select specific repos
+4. **Permissions**:
+   - Issues: `Read-only` ✅
+   - Metadata: `Read-only` ✅ (auto-selected)
+   - Pull requests: `Read-only` (if using PRs)
+5. Generate and copy token
+
+**Rate Limits:**
+- **Authenticated**: 5,000 requests/hour ✅ (plenty for this project)
+- **Unauthenticated**: 60 requests/hour ❌ (too low)
+- Check limits: `curl -H "Authorization: token TOKEN" https://api.github.com/rate_limit`
+
+#### 5. Get Collateral Tokens
 
 **Option A: Mint Your Own (Recommended)**
 ```bash

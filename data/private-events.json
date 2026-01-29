@@ -1,7 +1,5 @@
 {
-  "consumedIds": [
-    "local:kpi-pass:demo-1"
-  ],
+  "consumedIds": [],
   "signals": {
     "dao:kpi:passed": true
   },
@@ -12,7 +10,7 @@
       "signalKey": "dao:kpi:passed",
       "expectedYes": true,
       "question": "Will the private DAO KPI be PASSED by the deadline (private signal)?",
-      "endTimeSeconds": 0
+      "endTimeSeconds": 1738281600
     }
   ]
 }
