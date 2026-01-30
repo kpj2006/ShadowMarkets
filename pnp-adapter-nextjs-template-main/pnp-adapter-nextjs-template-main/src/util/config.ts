@@ -8,9 +8,12 @@ export const COLLATERAL_MINT = process.env.NEXT_PUBLIC_COLLATERAL_MINT
 export const COLLATERAL_DECIMALS = Number(process.env.NEXT_PUBLIC_COLLATERAL_DECIMALS || "6");
 
 export const getCollateralLabel = () => {
-    const mint = process.env.NEXT_PUBLIC_COLLATERAL_MINT;
-    if (mint && mint !== "Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr") {
-        return "SPL Token";
+    // Check for custom label first
+    const customLabel = process.env.NEXT_PUBLIC_COLLATERAL_LABEL;
+    if (customLabel) {
+        return customLabel;
     }
-    return "USDC";
+
+    // Default to generic "Token" label
+    return "Token";
 };

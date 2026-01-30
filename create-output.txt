@@ -1,0 +1,35 @@
+﻿
+> shadowmarkets-ai@0.1.0 create-market
+> tsx scripts/create-market.ts
+
+node.exe : bigint: Failed to 
+load bindings, pure JS will be 
+used (try npm run rebuild?)
+At C:\Program 
+Files\nodejs\npm.ps1:29 char:3
++   & $NODE_EXE $NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : No 
+   tSpecified: (bigint: Failed   
+  ...m run rebuild?):String) [   
+ ], RemoteException
+    + FullyQualifiedErrorId : Na 
+   tiveCommandError
+ 
+[PNP SDK] Using DEVNET program: pnpkv2qnh4bfpGvTugGDSEhvZC7DP4pVxTuDykV3BGz
+
+≡ƒÆ░ Checking token balance...
+   Wallet: BfjsShgBWb4nXDx9QXMvjeL6y9Yt3dJdJC6nSMaVXYST
+   Token Mint: Gh9ZwEmdLJ8DscKNTkTqPbNwLNNBjuSzaG9Vp2KGtKJr
+   Required: 1000000 (1 tokens)
+(node:99068) [DEP0040] 
+DeprecationWarning: The 
+`punycode` module is deprecated. 
+Please use a userland 
+alternative instead.
+(Use `node --trace-deprecation 
+...` to show where the warning 
+was created)
+
+≡ƒÆÑ Error creating market: 
+fetch failed

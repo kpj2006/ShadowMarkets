@@ -19,6 +19,11 @@ export function WalletInfo() {
 
   return (
     <div className="card mb-6">
+      <div className="bg-red-900/20 border border-red-500/50 p-2 mb-2 rounded text-xs font-mono">
+        <p>Label: "{getCollateralLabel()}"</p>
+        <p>Mint: {process.env.NEXT_PUBLIC_COLLATERAL_MINT?.slice(0, 8)}...</p>
+        <p>RPC: {process.env.NEXT_PUBLIC_SOLANA_RPC_URL?.slice(0, 15)}...</p>
+      </div>
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2 mb-1">

@@ -1,18 +1,28 @@
 {
-  "consumedIds": [
-    "local:kpi-pass:demo-1"
-  ],
-  "signals": {
-    "dao:kpi:passed": true
-  },
   "events": [
     {
       "kind": "localBooleanSignal",
-      "id": "local:kpi-pass:demo-1",
-      "signalKey": "dao:kpi:passed",
+      "id": "e1-build-success",
+      "signalKey": "ci_build_success",
       "expectedYes": true,
-      "question": "Will the private DAO KPI be PASSED by the deadline (private signal)?",
-      "endTimeSeconds": 1738281600
+      "question": "Will the latest CI build on 'main' succeed?",
+      "endTimeSeconds": 1738246000
+    },
+    {
+      "kind": "localBooleanSignal",
+      "id": "e2-deploy-live",
+      "signalKey": "prod_deploy_complete",
+      "expectedYes": true,
+      "question": "Will the production deployment be successful today?",
+      "endTimeSeconds": 1738250000
     }
+  ],
+  "signals": {
+    "ci_build_success": true,
+    "prod_deploy_complete": true
+  },
+  "consumedIds": [
+    "e1-build-success",
+    "e2-deploy-live"
   ]
 }

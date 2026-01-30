@@ -17,7 +17,7 @@ async function main() {
   const client = makePnpClient({ rpcUrl: env.rpcUrl, privateKey: env.pnpPrivateKey });
   const agent = new LiquidityAgent(client);
 
-  const res = await agent.enableTradingAndSeed(market, env.seedTradeUsdc);
+  const res = await agent.enableTradingAndSeed(market, env.seedTradeAmount);
 
   console.log(
     JSON.stringify(

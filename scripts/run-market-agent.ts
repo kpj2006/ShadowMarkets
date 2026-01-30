@@ -36,7 +36,7 @@ async function main() {
         console.log(`Created market ${rec.market}`);
 
         // IMPORTANT: activate within 15 minutes + seed small trade
-        const liq = await liquidityAgent.enableTradingAndSeed(new PublicKey(rec.market), env.seedTradeUsdc);
+        const liq = await liquidityAgent.enableTradingAndSeed(new PublicKey(rec.market), env.seedTradeAmount);
         console.log(`Enabled trading tx=${liq.enableSig} | seeded tx=${liq.tradeSig}`);
       }
     } catch (e) {

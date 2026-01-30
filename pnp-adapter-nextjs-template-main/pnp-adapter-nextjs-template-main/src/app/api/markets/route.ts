@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import fs from "fs/promises";
 import path from "path";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 // Path to backend data file (adjusts for dev/prod relative paths)
 const DATA_FILE_PATH = path.resolve(process.cwd(), "../../data/markets.json");
 

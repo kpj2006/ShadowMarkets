@@ -4,90 +4,96 @@ import { useState } from "react";
 import { useSolanaWallet } from "@/hooks";
 import { Header } from "@/components/Header";
 import { WalletInfo } from "@/components/WalletInfo";
-import { CreateMarketV2Form } from "@/components/CreateMarketV2Form";
-import { CreateMarketV3Form } from "@/components/CreateMarketV3Form";
-import { MarketQuery } from "@/components/MarketQuery";
+import { Marketplace } from "@/components/Marketplace";
+import { Portfolio } from "@/components/Portfolio";
+import { AdminTerminal } from "@/components/AdminTerminal";
 import { MarketTrade } from "@/components/MarketTrade";
-import { RedeemPosition } from "@/components/RedeemPosition";
-import { AgentMonitor } from "@/components/AgentMonitor";
-import { MarketsDashboard } from "@/components/MarketsDashboard";
-import { SettlementHistory } from "@/components/SettlementHistory";
 
-type Tab = "dashboard" | "query" | "trade" | "redeem" | "create-v2" | "create-v3";
+type Tab = "marketplace" | "portfolio" | "admin";
 
 export default function Home() {
   const { isConnected } = useSolanaWallet();
-  const [activeTab, setActiveTab] = useState<Tab>("dashboard");
+  const [activeTab, setActiveTab] = useState<Tab>("marketplace");
   const [selectedMarket, setSelectedMarket] = useState<string>("");
   const [selectedSide, setSelectedSide] = useState<"yes" | "no">("yes");
+  const [showTradePanel, setShowTradePanel] = useState(false);
 
   const handleTrade = (marketAddress: string, side: "yes" | "no") => {
     setSelectedMarket(marketAddress);
     setSelectedSide(side);
-    setActiveTab("trade");
+    setShowTradePanel(true);
   };
 
-  const tabs: { id: Tab; label: string }[] = [
-    { id: "dashboard", label: "Dashboard" },
-    { id: "query", label: "Query" },
-    { id: "trade", label: "Trade" },
-    { id: "redeem", label: "Redeem" },
-    { id: "create-v2", label: "Create V2" },
-    { id: "create-v3", label: "Create V3" },
+  const tabs: { id: Tab; label: string; icon: string }[] = [
+    { id: "marketplace", label: "Marketplace", icon: "🌐" },
+    { id: "portfolio", label: "My Rewards", icon: "🎁" },
+    { id: "admin", label: "Terminal", icon: "🤖" },
   ];
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/20 via-black to-black">
       <Header />
 
-      <main className="max-w-4xl mx-auto px-4 py-8">
-        <div className="flex flex-wrap gap-2 mb-6">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 rounded-lg font-medium transition-colors ${activeTab === tab.id
-                ? "bg-primary text-white"
-                : "bg-zinc-800 text-zinc-400 hover:text-white"
-                }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+      <main className="max-w-6xl mx-auto px-4 py-8">
+        {/* Navigation Tabs */}
+        <div className="flex justify-center mb-8">
+          <div className="glass-panel p-1 flex gap-1 rounded-full">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-300 flex items-center gap-2 ${activeTab === tab.id
+                    ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/30"
+                    : "text-zinc-400 hover:text-white hover:bg-white/5"
+                  }`}
+              >
+                <span>{tab.icon}</span>
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {activeTab === "dashboard" ? (
-          <div className="space-y-8">
-            <AgentMonitor />
-            <MarketsDashboard onTrade={handleTrade} />
-            <SettlementHistory />
-          </div>
-        ) : !isConnected ? (
-          <div className="card text-center py-16">
-            <h2 className="text-2xl font-bold mb-4">Wallet Connection Required</h2>
-            <p className="text-zinc-400 mb-6">
-              Connect your wallet to {activeTab.replace("-", " ")}
-            </p>
-            <p className="text-zinc-500 text-sm">
-              Click &quot;Connect Wallet&quot; in the header to get started
-            </p>
-          </div>
-        ) : (
-          <>
-            <WalletInfo />
-            {activeTab === "query" && <MarketQuery />}
-            {activeTab === "trade" && (
+        {/* Content Area */}
+        <div className="min-h-[600px]">
+          {activeTab === "marketplace" && (
+            <Marketplace onTrade={handleTrade} />
+          )}
+
+          {activeTab === "portfolio" && (
+            <Portfolio />
+          )}
+
+          {activeTab === "admin" && (
+            <AdminTerminal />
+          )}
+        </div>
+      </main>
+
+      {/* Trade Slide-over Panel */}
+      {showTradePanel && (
+        <div className="fixed inset-0 z-50 flex justify-end">
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+            onClick={() => setShowTradePanel(false)}
+          ></div>
+          <div className="relative w-full max-w-md bg-zinc-900 border-l border-white/10 shadow-2xl h-full overflow-y-auto animate-in-right">
+            <div className="p-6">
+              <button
+                onClick={() => setShowTradePanel(false)}
+                className="absolute top-4 right-4 text-zinc-500 hover:text-white"
+              >
+                ✕
+              </button>
+              <h3 className="text-xl font-bold text-white mb-6">Execute Trade</h3>
               <MarketTrade
                 initialMarketAddress={selectedMarket}
                 initialSide={selectedSide}
               />
-            )}
-            {activeTab === "redeem" && <RedeemPosition />}
-            {activeTab === "create-v2" && <CreateMarketV2Form />}
-            {activeTab === "create-v3" && <CreateMarketV3Form />}
-          </>
-        )}
-      </main>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

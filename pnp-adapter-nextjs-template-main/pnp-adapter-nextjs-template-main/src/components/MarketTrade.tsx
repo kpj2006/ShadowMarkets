@@ -17,6 +17,7 @@ import {
 } from "pnp-adapter";
 import { useSolanaWallet, useBalance, useBirdeye, getKnownToken, type TokenInfo } from "@/hooks";
 import { COLLATERAL_DECIMALS, getCollateralLabel } from "@/util/config";
+import { useQueryClient } from "@tanstack/react-query";
 
 type TradeAction = "buy" | "sell";
 type TokenSide = "yes" | "no";
@@ -28,6 +29,7 @@ interface MarketTradeProps {
 
 export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: MarketTradeProps) {
   const { connection, wallet, isConnected } = useSolanaWallet();
+  const queryClient = useQueryClient();
   const { data: usdcBalance } = useBalance();
   const { getTokenInfo } = useBirdeye();
   const [isLoading, setIsLoading] = useState(false);
@@ -54,6 +56,8 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
     creator: string;
     collateralToken: string;
     reserves: number;
+    endTime: number;
+    resolved: boolean;
   } | null>(null);
 
   // Collateral token info from Birdeye
@@ -69,7 +73,7 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
 
   // Helper to fetch user token balances
   const fetchUserTokenBalances = useCallback(async () => {
-    if (!marketAddress || !wallet?.address || !marketInfo || marketInfo.version === 3) {
+    if (!marketAddress || !wallet?.address || !marketInfo) {
       return;
     }
 
@@ -95,10 +99,12 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
 
   // Fetch balances when wallet connects after market is loaded
   useEffect(() => {
-    if (marketInfo && marketInfo.version !== 3 && wallet?.address && !userTokenBalances) {
+    if (marketInfo && wallet?.address && !userTokenBalances) {
       fetchUserTokenBalances();
     }
   }, [marketInfo, wallet?.address, userTokenBalances, fetchUserTokenBalances]);
+
+  const hasPosition = !!(userTokenBalances && (userTokenBalances.yesBalance > 0 || userTokenBalances.noBalance > 0));
 
   const fetchMarketInfo = async () => {
     if (!marketAddress.trim()) {
@@ -135,6 +141,9 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
       console.log("Creator address:", creator);
       console.log("Collateral token:", collateralToken);
 
+      const resolved = !!marketAccount.resolved;
+      const endTime = Number(marketAccount.endTime || marketAccount.end_time || 0);
+
       setMarketInfo({
         version,
         yesPrice,
@@ -142,6 +151,8 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
         creator,
         collateralToken,
         reserves: data.marketReserves,
+        endTime,
+        resolved,
       });
 
       // Fetch collateral token info from Birdeye (or use known tokens)
@@ -161,8 +172,8 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
         }
       }
 
-      // Fetch user's YES/NO token balances for V2 markets
-      if (version !== 3 && wallet?.address) {
+      // Fetch user's YES/NO token balances for V2 & V3 markets
+      if (wallet?.address) {
         try {
           const tokenAddresses = await getMarketTokenAddresses(connection, marketAddress);
           if (tokenAddresses) {
@@ -204,14 +215,32 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
       return;
     }
 
+    // Prevent buying if already has position
+    if (action === "buy" && hasPosition) {
+      toast.error("You have already predicted on this market.");
+      return;
+    }
+
     const amountNum = parseFloat(amount);
     if (isNaN(amountNum) || amountNum <= 0) {
       toast.error("Please enter a valid amount");
       return;
     }
 
+    if (marketInfo.resolved) {
+      toast.error("Market is already resolved. Trading is locked.");
+      return;
+    }
+
+    const now = Math.floor(Date.now() / 1000);
+    if (now >= marketInfo.endTime) {
+      toast.error("Market has ended. Trading is locked.");
+      return;
+    }
+
     if (action === "buy" && (usdcBalance === undefined || usdcBalance < amountNum)) {
-      toast.error(`Insufficient ${getCollateralLabel()} balance. You have ${usdcBalance?.toFixed(2) ?? 0} ${getCollateralLabel()}.`);
+      const label = getCollateralLabel();
+      toast.error(`Insufficient ${label} balance. You have ${usdcBalance?.toFixed(2) ?? 0} ${label}.`);
       return;
     }
 
@@ -297,6 +326,9 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
 
       setTxSignature(signature);
 
+      // Refresh global balance
+      await queryClient.invalidateQueries({ queryKey: ["balance"] });
+
       // Refresh market info and balances
       fetchMarketInfo();
       fetchUserTokenBalances();
@@ -314,8 +346,8 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
   };
 
   return (
-    <div className="card">
-      <h2 className="text-xl font-bold mb-4">Trade Market</h2>
+    <div className="glass-panel p-6 h-full border-l border-white/5 bg-zinc-900/80 backdrop-blur-xl">
+      <h2 className="text-xl font-bold mb-4 text-white">Trade Market</h2>
       <p className="text-zinc-400 text-sm mb-6">
         Enter a market address to buy or sell tokens. Works for both V2 and V3 markets.
       </p>
@@ -323,7 +355,7 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
       <div className="space-y-4">
         {/* Market Address Input */}
         <div>
-          <label className="block text-sm font-medium mb-2">Market Address</label>
+          <label className="block text-sm font-medium mb-2 text-zinc-300">Market Address</label>
           <div className="flex gap-2">
             <input
               type="text"
@@ -333,14 +365,14 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
                 setMarketInfo(null);
               }}
               placeholder="Enter market address..."
-              className="input flex-1 font-mono text-sm"
+              className="px-4 py-2 bg-black/50 border border-white/10 rounded-lg flex-1 font-mono text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
               disabled={isLoading}
             />
             <button
               type="button"
               onClick={fetchMarketInfo}
               disabled={isFetching || isLoading}
-              className="px-4 py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
+              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
             >
               {isFetching ? "..." : "Load"}
             </button>
@@ -349,14 +381,14 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
 
         {/* Market Info Display */}
         {marketInfo && (
-          <div className="p-4 bg-zinc-800/50 rounded-lg space-y-3">
+          <div className="p-4 bg-black/40 rounded-lg space-y-3 border border-white/5">
             <div className="flex justify-between items-center">
               <span className="text-zinc-400 text-sm">Market Version</span>
-              <span className="font-medium">V{marketInfo.version}</span>
+              <span className="font-medium text-emerald-400 font-mono">V{marketInfo.version}</span>
             </div>
 
             {/* Collateral Token Info */}
-            <div className="flex justify-between items-center p-3 bg-zinc-700/50 rounded-lg">
+            <div className="flex justify-between items-center p-3 bg-zinc-800/50 rounded-lg">
               <div className="flex items-center gap-2">
                 {collateralInfo?.logoURI && (
                   <img
@@ -369,71 +401,97 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
                   />
                 )}
                 <div>
-                  <p className="text-sm font-medium">
-                    {collateralInfo?.symbol || "Unknown Token"}
+                  <p className="text-sm font-medium text-white">
+                    {collateralInfo?.symbol || "Collateral Token"}
                   </p>
-                  <p className="text-xs text-zinc-400">
+                  <p className="text-xs text-zinc-500">
                     {collateralInfo?.name || marketInfo.collateralToken.slice(0, 8) + "..."}
                   </p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-sm font-medium">
+                <p className="text-sm font-medium text-white">
                   {marketInfo.reserves.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2,
                   })}
                 </p>
-                <p className="text-xs text-zinc-400">Total Reserves</p>
+                <p className="text-xs text-zinc-500">Total Reserves</p>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-3 bg-green-900/20 border border-green-800 rounded-lg">
-                <p className="text-green-400 text-sm">YES Price</p>
-                <p className="text-xl font-bold text-green-400">
+              <div className="text-center p-3 bg-emerald-900/20 border border-emerald-500/20 rounded-lg">
+                <p className="text-emerald-400 text-sm">YES Price</p>
+                <p className="text-xl font-bold text-white">
                   {(marketInfo.yesPrice * 100).toFixed(1)}%
                 </p>
               </div>
-              <div className="text-center p-3 bg-red-900/20 border border-red-800 rounded-lg">
-                <p className="text-red-400 text-sm">NO Price</p>
-                <p className="text-xl font-bold text-red-400">
+              <div className="text-center p-3 bg-rose-900/20 border border-rose-500/20 rounded-lg">
+                <p className="text-rose-400 text-sm">NO Price</p>
+                <p className="text-xl font-bold text-white">
                   {(marketInfo.noPrice * 100).toFixed(1)}%
                 </p>
               </div>
             </div>
+
+            <div className="text-center p-2 bg-zinc-800/30 rounded-lg">
+              <p className="text-zinc-500 text-xs mb-1">Market Status</p>
+              {marketInfo.resolved ? (
+                <span className="text-white font-bold bg-zinc-600 px-3 py-1 rounded-full text-xs">
+                  RESOLVED
+                </span>
+              ) : Math.floor(Date.now() / 1000) >= marketInfo.endTime ? (
+                <span className="text-amber-400 font-bold bg-amber-900/30 border border-amber-800 px-3 py-1 rounded-full text-xs">
+                  CLOSED (AWAITING SETTLEMENT)
+                </span>
+              ) : (
+                <span className="text-emerald-400 font-bold bg-emerald-900/30 border border-emerald-800 px-3 py-1 rounded-full text-xs animate-pulse">
+                  OPEN (ENDS {new Date(marketInfo.endTime * 1000).toLocaleString()})
+                </span>
+              )}
+            </div>
             {marketInfo.version === 3 && (
-              <p className="text-yellow-500 text-xs text-center">
+              <p className="text-amber-500 text-xs text-center">
                 V3 markets only support buying. Sell via Redeem after settlement.
               </p>
             )}
 
-            {/* User Token Balances for V2 */}
-            {marketInfo.version !== 3 && userTokenBalances && (
-              <div className="mt-3 p-3 bg-zinc-700/30 rounded-lg">
+            {/* Position Limit Warning */}
+            {hasPosition && action === "buy" && (
+              <div className="p-3 bg-indigo-900/30 border border-indigo-500/30 rounded-lg">
+                <p className="text-xs text-indigo-200 text-center">
+                  ℹ️ You have already predicted on this market. You cannot place additional predictions.
+                </p>
+              </div>
+            )}
+
+            {/* User Token Balances */}
+            {userTokenBalances && (
+              <div className="mt-3 p-3 bg-zinc-800/30 rounded-lg">
                 <div className="flex justify-between items-center mb-2">
                   <p className="text-zinc-400 text-xs">Your Token Holdings</p>
                   <button
                     type="button"
                     onClick={fetchUserTokenBalances}
-                    className="text-xs text-primary hover:underline"
+                    className="text-xs text-indigo-400 hover:text-indigo-300"
                   >
                     Refresh
                   </button>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="text-center p-2 bg-green-900/30 border border-green-800/50 rounded">
-                    <p className="text-green-400 text-xs">YES Tokens</p>
-                    <p className="text-lg font-bold text-green-400">
+                  <div className="text-center p-2 bg-emerald-900/10 border border-emerald-500/20 rounded">
+                    <p className="text-emerald-400 text-xs">YES Tokens</p>
+                    <p className="text-lg font-bold text-white">
                       {userTokenBalances.yesBalance.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 4,
                       })}
                     </p>
                   </div>
-                  <div className="text-center p-2 bg-red-900/30 border border-red-800/50 rounded">
-                    <p className="text-red-400 text-xs">NO Tokens</p>
-                    <p className="text-lg font-bold text-red-400">
+                  <div className="text-center p-2 bg-rose-900/10 border border-rose-500/20 rounded">
+                    <p className="text-rose-400 text-xs">NO Tokens</p>
+                    <p className="text-lg font-bold text-white">
                       {userTokenBalances.noBalance.toLocaleString(undefined, {
                         minimumFractionDigits: 2,
                         maximumFractionDigits: 4,
@@ -443,19 +501,19 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
                 </div>
               </div>
             )}
-            {marketInfo.version !== 3 && !userTokenBalances && isConnected && (
+            {!userTokenBalances && isConnected && (
               <div className="flex justify-center items-center gap-2 mt-2">
                 <p className="text-zinc-500 text-xs">Loading your token balances...</p>
                 <button
                   type="button"
                   onClick={fetchUserTokenBalances}
-                  className="text-xs text-primary hover:underline"
+                  className="text-xs text-indigo-400 hover:text-indigo-300"
                 >
                   Retry
                 </button>
               </div>
             )}
-            {marketInfo.version !== 3 && !isConnected && (
+            {!isConnected && (
               <p className="text-zinc-500 text-xs text-center mt-2">
                 Connect wallet to see your token holdings
               </p>
@@ -469,13 +527,13 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
             {/* Action Toggle - Only for V2 */}
             {marketInfo.version !== 3 && (
               <div>
-                <label className="block text-sm font-medium mb-2">Action</label>
+                <label className="block text-sm font-medium mb-2 text-zinc-300">Action</label>
                 <div className="flex gap-2">
                   <button
                     type="button"
                     onClick={() => setAction("buy")}
                     className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${action === "buy"
-                      ? "bg-green-600 text-white"
+                      ? "bg-emerald-600 text-white shadow-lg shadow-emerald-500/20"
                       : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
                       }`}
                     disabled={isLoading}
@@ -486,7 +544,7 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
                     type="button"
                     onClick={() => setAction("sell")}
                     className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${action === "sell"
-                      ? "bg-red-600 text-white"
+                      ? "bg-rose-600 text-white shadow-lg shadow-rose-500/20"
                       : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
                       }`}
                     disabled={isLoading}
@@ -499,16 +557,16 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
 
             {/* Side Toggle */}
             <div>
-              <label className="block text-sm font-medium mb-2">Side</label>
+              <label className="block text-sm font-medium mb-2 text-zinc-300">Side</label>
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={() => setSide("yes")}
                   className={`flex-1 py-3 px-4 rounded-lg font-medium transition-colors ${side === "yes"
-                    ? "bg-green-600 text-white"
-                    : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
+                    ? "bg-emerald-600/20 text-emerald-400 border border-emerald-500/50"
+                    : "bg-zinc-800/50 text-zinc-500 border border-transparent hover:bg-zinc-800"
                     }`}
-                  disabled={isLoading}
+                  disabled={isLoading || (action === 'buy' && hasPosition)}
                 >
                   YES ({(marketInfo.yesPrice * 100).toFixed(1)}%)
                 </button>
@@ -516,10 +574,10 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
                   type="button"
                   onClick={() => setSide("no")}
                   className={`flex-1 py-3 px-4 rounded-lg font-medium transition-colors ${side === "no"
-                    ? "bg-red-600 text-white"
-                    : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
+                    ? "bg-rose-600/20 text-rose-400 border border-rose-500/50"
+                    : "bg-zinc-800/50 text-zinc-500 border border-transparent hover:bg-zinc-800"
                     }`}
-                  disabled={isLoading}
+                  disabled={isLoading || (action === 'buy' && hasPosition)}
                 >
                   NO ({(marketInfo.noPrice * 100).toFixed(1)}%)
                 </button>
@@ -529,10 +587,10 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
             {/* Amount */}
             <div>
               <div className="flex justify-between items-center mb-2">
-                <label className="text-sm font-medium">
+                <label className="text-sm font-medium text-zinc-300">
                   {action === "sell" && marketInfo.version !== 3
                     ? `Amount (${side.toUpperCase()} tokens)`
-                    : `Amount (${collateralInfo?.symbol || getCollateralLabel()})`}
+                    : `Amount (${collateralInfo?.symbol || "Collateral"})`}
                 </label>
                 {action === "sell" && userTokenBalances && (
                   <button
@@ -543,13 +601,18 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
                         : userTokenBalances.noBalance;
                       setAmount(balance.toString());
                     }}
-                    className="text-xs text-primary hover:underline"
+                    className="text-xs text-indigo-400 hover:text-indigo-300"
                   >
                     Max: {(side === "yes"
                       ? userTokenBalances.yesBalance
                       : userTokenBalances.noBalance
                     ).toLocaleString(undefined, { maximumFractionDigits: 4 })}
                   </button>
+                )}
+                {action === "buy" && usdcBalance !== undefined && (
+                  <span className="text-xs text-zinc-400">
+                    Balance: {usdcBalance.toLocaleString()} {collateralInfo?.symbol || "Tokens"}
+                  </span>
                 )}
               </div>
               <input
@@ -559,7 +622,7 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
                 placeholder="1"
                 min="0.01"
                 step="0.01"
-                className="input w-full"
+                className="px-4 py-3 bg-black/50 border border-white/10 rounded-lg w-full font-mono text-white focus:outline-none focus:border-indigo-500 transition-colors"
                 disabled={isLoading}
               />
             </div>
@@ -567,7 +630,7 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
             {/* Submit Button */}
             <button
               type="submit"
-              disabled={isLoading || !isConnected}
+              disabled={isLoading || !isConnected || Math.floor(Date.now() / 1000) >= marketInfo.endTime || marketInfo.resolved}
               className={`w-full py-3 px-4 rounded-lg font-medium transition-colors ${action === "buy" || marketInfo.version === 3
                 ? "bg-green-600 hover:bg-green-700"
                 : "bg-red-600 hover:bg-red-700"
@@ -575,7 +638,11 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
             >
               {isLoading
                 ? "Processing..."
-                : `${marketInfo.version === 3 ? "Buy" : action === "buy" ? "Buy" : "Sell"} ${side.toUpperCase()}`}
+                : marketInfo.resolved
+                  ? "Market Resolved"
+                  : Math.floor(Date.now() / 1000) >= marketInfo.endTime
+                    ? "Trading Closed"
+                    : `${marketInfo.version === 3 ? "Buy" : action === "buy" ? "Buy" : "Sell"} ${side.toUpperCase()}`}
             </button>
           </form>
         )}

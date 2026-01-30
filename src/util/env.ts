@@ -9,7 +9,7 @@ export type Env = {
   collateralMint: string;
   collateralDecimals: number;
   initialLiquidityBaseUnits: bigint;
-  seedTradeUsdc: number;
+  seedTradeAmount: number;
   yesOddsBps?: number;
   marketDurationSeconds: number;
   github?: {
@@ -78,7 +78,7 @@ export function loadEnv(): Env {
     collateralMint,
     collateralDecimals: getNum("COLLATERAL_DECIMALS", 6),
     initialLiquidityBaseUnits: getBigint("INITIAL_LIQUIDITY_BASE_UNITS", 1_000_000n),
-    seedTradeUsdc: getNum("SEED_TRADE_USDC", 1),
+    seedTradeAmount: getNum("SEED_TRADE_AMOUNT", 1),
     yesOddsBps: process.env.YES_ODDS_BPS ? getNum("YES_ODDS_BPS", 5000) : undefined,
     marketDurationSeconds: getNum("MARKET_DURATION_SECONDS", 3600),
     github:
