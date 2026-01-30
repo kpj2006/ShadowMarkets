@@ -182,7 +182,7 @@ export function RedeemPosition() {
         <div className="mt-4 p-4 bg-green-900/20 border border-green-800 rounded-lg">
           <p className="text-green-400 text-sm mb-2">Redemption successful!</p>
           <a
-            href={`https://solscan.io/tx/${txSignature}`}
+            href={`https://solscan.io/tx/${txSignature}?cluster=devnet`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary text-sm hover:underline break-all"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useSolanaWallet, useBalance } from "@/hooks";
+import { getCollateralLabel } from "@/util/config";
 
 export function WalletInfo() {
   const { address, walletType } = useSolanaWallet();
@@ -31,9 +32,9 @@ export function WalletInfo() {
           </p>
         </div>
         <div className="text-right">
-          <p className="text-sm text-zinc-400 mb-1">USDC Balance</p>
+          <p className="text-sm text-zinc-400 mb-1">{getCollateralLabel()} Balance</p>
           <p className="text-lg font-bold">
-            {isLoading ? "..." : `${balance?.toFixed(2) ?? "0.00"} USDC`}
+            {isLoading ? "..." : `${balance?.toFixed(2) ?? "0.00"} ${getCollateralLabel()}`}
           </p>
         </div>
       </div>

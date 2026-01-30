@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { createMarketV3, DEFAULT_COLLATERAL_MINT } from "pnp-adapter";
-import { useSolanaWallet } from "@/hooks";
+import { createMarketV3 } from "pnp-adapter";
+import { useSolanaWallet, useBalance } from "@/hooks";
+import { COLLATERAL_MINT, COLLATERAL_DECIMALS, getCollateralLabel } from "@/util/config";
 
 export function CreateMarketV3Form() {
   const { connection, wallet, isConnected } = useSolanaWallet();
+  const { data: usdcBalance } = useBalance();
   const [isLoading, setIsLoading] = useState(false);
   const [txSignature, setTxSignature] = useState<string | null>(null);
 
@@ -47,16 +49,21 @@ export function CreateMarketV3Form() {
       return;
     }
 
+    if (usdcBalance === undefined || usdcBalance < amount) {
+      toast.error(`Insufficient ${getCollateralLabel()} balance. You have ${usdcBalance?.toFixed(2) ?? 0} ${getCollateralLabel()}.`);
+      return;
+    }
+
     setIsLoading(true);
     setTxSignature(null);
 
     try {
       const { txSig } = await createMarketV3(connection, wallet, {
         question: formData.question,
-        amount: amount * 1_000_000, // Convert to base units
+        amount: amount * Math.pow(10, COLLATERAL_DECIMALS), // Convert to base units
         side: formData.side,
         endTime: endTimeUnix,
-        collateralMint: DEFAULT_COLLATERAL_MINT.toString(),
+        collateralMint: COLLATERAL_MINT.toString(),
       });
 
       setTxSignature(txSig);
@@ -71,7 +78,12 @@ export function CreateMarketV3Form() {
       });
     } catch (error: any) {
       console.error("Failed to create market:", error);
-      toast.error(error?.message || "Failed to create market");
+      const errorMsg = error?.message || "";
+      if (errorMsg.includes("AccountNotInitialized") || errorMsg.includes("0xbc4")) {
+        toast.error(`Account not found. Please get some ${getCollateralLabel()} from a faucet first to initialize your account.`);
+      } else {
+        toast.error(errorMsg || "Failed to create market");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -101,7 +113,7 @@ export function CreateMarketV3Form() {
 
         <div>
           <label className="block text-sm font-medium mb-2">
-            Initial Amount (USDC)
+            Initial Amount ({getCollateralLabel()})
           </label>
           <input
             type="number"
@@ -171,7 +183,7 @@ export function CreateMarketV3Form() {
         <div className="mt-4 p-4 bg-green-900/20 border border-green-800 rounded-lg">
           <p className="text-green-400 text-sm mb-2">Transaction successful!</p>
           <a
-            href={`https://solscan.io/tx/${txSignature}`}
+            href={`https://solscan.io/tx/${txSignature}?cluster=devnet`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary text-sm hover:underline break-all"

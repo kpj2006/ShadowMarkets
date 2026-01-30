@@ -11,7 +11,11 @@ type Market = {
     };
 };
 
-export function MarketsDashboard() {
+interface MarketsDashboardProps {
+    onTrade?: (marketAddress: string, side: "yes" | "no") => void;
+}
+
+export function MarketsDashboard({ onTrade }: MarketsDashboardProps) {
     const [markets, setMarkets] = useState<Market[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -58,11 +62,16 @@ export function MarketsDashboard() {
                             </div>
 
                             <div className="flex gap-2 mt-auto">
-                                {/* In a real app, this would link to the trading tab with pre-filled market */}
-                                <button className="btn-primary flex-1 text-sm py-2">
+                                <button
+                                    onClick={() => onTrade?.(m.market, "yes")}
+                                    className="btn-primary flex-1 text-sm py-2"
+                                >
                                     Trade YES
                                 </button>
-                                <button className="btn-secondary flex-1 text-sm py-2">
+                                <button
+                                    onClick={() => onTrade?.(m.market, "no")}
+                                    className="btn-secondary flex-1 text-sm py-2"
+                                >
                                     Trade NO
                                 </button>
                             </div>

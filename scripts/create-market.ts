@@ -35,7 +35,7 @@ async function checkBalance(
       console.error(`   Need: ${Number(requiredAmount) / 10 ** decimals} tokens`);
       console.error(`\n💡 Solutions:`);
       console.error(`   1. Get devnet tokens from faucet:`);
-      console.error(`      - Circle USDC: https://faucet.circle.com/`);
+      console.error(`      - Faucet: https://faucet.circle.com/ (for USDC) or your custom token source`);
       console.error(`      - Or create your own SPL token on devnet`);
       console.error(`   2. Update INITIAL_LIQUIDITY_BASE_UNITS in .env to a smaller amount`);
       throw new Error(
@@ -49,7 +49,7 @@ async function checkBalance(
       console.error(`\n❌ Token account does not exist!`);
       console.error(`   You need to receive tokens first (create the token account).`);
       console.error(`\n💡 Solutions:`);
-      console.error(`   1. Get devnet USDC from faucet: https://faucet.circle.com/`);
+      console.error(`   1. Get tokens from faucet: https://faucet.circle.com/ (for USDC) or your custom token source`);
       console.error(`   2. Or create your own SPL token and mint some to your wallet`);
       throw new Error(`Token account not found. You need to receive tokens first.`);
     }

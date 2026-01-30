@@ -15,22 +15,36 @@ import {
   getMarketTokenAddresses,
   getUserTokenBalance,
 } from "pnp-adapter";
-import { useSolanaWallet, useBirdeye, getKnownToken, type TokenInfo } from "@/hooks";
+import { useSolanaWallet, useBalance, useBirdeye, getKnownToken, type TokenInfo } from "@/hooks";
+import { COLLATERAL_DECIMALS, getCollateralLabel } from "@/util/config";
 
 type TradeAction = "buy" | "sell";
 type TokenSide = "yes" | "no";
 
-export function MarketTrade() {
+interface MarketTradeProps {
+  initialMarketAddress?: string;
+  initialSide?: "yes" | "no";
+}
+
+export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: MarketTradeProps) {
   const { connection, wallet, isConnected } = useSolanaWallet();
+  const { data: usdcBalance } = useBalance();
   const { getTokenInfo } = useBirdeye();
   const [isLoading, setIsLoading] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [txSignature, setTxSignature] = useState<string | null>(null);
 
-  const [marketAddress, setMarketAddress] = useState("");
+  const [marketAddress, setMarketAddress] = useState(initialMarketAddress);
   const [amount, setAmount] = useState("1");
   const [action, setAction] = useState<TradeAction>("buy");
-  const [side, setSide] = useState<TokenSide>("yes");
+  const [side, setSide] = useState<TokenSide>(initialSide);
+
+  // Auto-fetch if initialMarketAddress is provided
+  useEffect(() => {
+    if (initialMarketAddress) {
+      fetchMarketInfo();
+    }
+  }, [initialMarketAddress]);
 
   // Market info
   const [marketInfo, setMarketInfo] = useState<{
@@ -196,11 +210,16 @@ export function MarketTrade() {
       return;
     }
 
+    if (action === "buy" && (usdcBalance === undefined || usdcBalance < amountNum)) {
+      toast.error(`Insufficient ${getCollateralLabel()} balance. You have ${usdcBalance?.toFixed(2) ?? 0} ${getCollateralLabel()}.`);
+      return;
+    }
+
     setIsLoading(true);
     setTxSignature(null);
 
     try {
-      const decimals = collateralInfo?.decimals || 6;
+      const decimals = collateralInfo?.decimals || COLLATERAL_DECIMALS;
       const amountBaseUnits = Math.floor(amountNum * Math.pow(10, decimals));
 
       console.log("Trade params:", {
@@ -283,7 +302,12 @@ export function MarketTrade() {
       fetchUserTokenBalances();
     } catch (error: any) {
       console.error("Trade failed:", error);
-      toast.error(error?.message || "Trade failed");
+      const errorMsg = error?.message || "";
+      if (errorMsg.includes("AccountNotInitialized") || errorMsg.includes("0xbc4")) {
+        toast.error(`Account not found. Please get some ${getCollateralLabel()} from a faucet first to initialize your account.`);
+      } else {
+        toast.error(errorMsg || "Trade failed");
+      }
     } finally {
       setIsLoading(false);
     }
@@ -451,8 +475,8 @@ export function MarketTrade() {
                     type="button"
                     onClick={() => setAction("buy")}
                     className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${action === "buy"
-                        ? "bg-green-600 text-white"
-                        : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
+                      ? "bg-green-600 text-white"
+                      : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
                       }`}
                     disabled={isLoading}
                   >
@@ -462,8 +486,8 @@ export function MarketTrade() {
                     type="button"
                     onClick={() => setAction("sell")}
                     className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${action === "sell"
-                        ? "bg-red-600 text-white"
-                        : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
+                      ? "bg-red-600 text-white"
+                      : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
                       }`}
                     disabled={isLoading}
                   >
@@ -481,8 +505,8 @@ export function MarketTrade() {
                   type="button"
                   onClick={() => setSide("yes")}
                   className={`flex-1 py-3 px-4 rounded-lg font-medium transition-colors ${side === "yes"
-                      ? "bg-green-600 text-white"
-                      : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
+                    ? "bg-green-600 text-white"
+                    : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
                     }`}
                   disabled={isLoading}
                 >
@@ -492,8 +516,8 @@ export function MarketTrade() {
                   type="button"
                   onClick={() => setSide("no")}
                   className={`flex-1 py-3 px-4 rounded-lg font-medium transition-colors ${side === "no"
-                      ? "bg-red-600 text-white"
-                      : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
+                    ? "bg-red-600 text-white"
+                    : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
                     }`}
                   disabled={isLoading}
                 >
@@ -508,7 +532,7 @@ export function MarketTrade() {
                 <label className="text-sm font-medium">
                   {action === "sell" && marketInfo.version !== 3
                     ? `Amount (${side.toUpperCase()} tokens)`
-                    : `Amount (${collateralInfo?.symbol || "USDC"})`}
+                    : `Amount (${collateralInfo?.symbol || getCollateralLabel()})`}
                 </label>
                 {action === "sell" && userTokenBalances && (
                   <button
@@ -545,8 +569,8 @@ export function MarketTrade() {
               type="submit"
               disabled={isLoading || !isConnected}
               className={`w-full py-3 px-4 rounded-lg font-medium transition-colors ${action === "buy" || marketInfo.version === 3
-                  ? "bg-green-600 hover:bg-green-700"
-                  : "bg-red-600 hover:bg-red-700"
+                ? "bg-green-600 hover:bg-green-700"
+                : "bg-red-600 hover:bg-red-700"
                 } text-white disabled:opacity-50 disabled:cursor-not-allowed`}
             >
               {isLoading
@@ -561,7 +585,7 @@ export function MarketTrade() {
           <div className="p-4 bg-green-900/20 border border-green-800 rounded-lg">
             <p className="text-green-400 text-sm mb-2">Transaction successful!</p>
             <a
-              href={`https://solscan.io/tx/${txSignature}`}
+              href={`https://solscan.io/tx/${txSignature}?cluster=devnet`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary text-sm hover:underline break-all"

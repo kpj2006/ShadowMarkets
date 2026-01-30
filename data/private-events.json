@@ -1,5 +1,7 @@
 {
-  "consumedIds": [],
+  "consumedIds": [
+    "local:kpi-pass:demo-1"
+  ],
   "signals": {
     "dao:kpi:passed": true
   },
