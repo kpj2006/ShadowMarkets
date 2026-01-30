@@ -2,7 +2,7 @@ import { loadEnv } from "../src/util/env.js";
 import { makePnpClient } from "../src/pnp/pnpClient.js";
 import { makeEventSource } from "../src/sources/makeSource.js";
 import { OracleAgent } from "../src/agents/oracleAgent.js";
-import { OpenAiCompatibleOracle } from "../src/llm/openaiCompatible.js";
+import { GeminiOracle } from "../src/llm/gemini.js";
 import { loadMarkets, markSettled } from "../src/util/marketsStore.js";
 import { sleepSeconds } from "../src/util/time.js";
 
@@ -12,7 +12,7 @@ async function main() {
   const env = loadEnv();
   const client = makePnpClient({ rpcUrl: env.rpcUrl, privateKey: env.pnpPrivateKey });
   const source = makeEventSource(env);
-  const llm = env.llm ? new OpenAiCompatibleOracle(env.llm) : null;
+  const llm = env.llm ? new GeminiOracle(env.llm) : null;
   const oracle = new OracleAgent(client, source, llm);
 
   console.log("ShadowMarkets AI oracle agent running. Checking every 20s.");
@@ -25,7 +25,11 @@ async function main() {
 
         const status = await oracle.settleIfReady({ market: rec.market, event: rec.event });
         if (status.didSettle) {
-          await markSettled(MARKETS_FILE, rec.market);
+          await markSettled(MARKETS_FILE, rec.market, {
+            yesWinner: status.yesWinner,
+            reasoning: status.reasoning,
+            signature: status.signature,
+          });
           console.log(`Settled market ${rec.market} yesWinner=${status.yesWinner} tx=${status.signature}`);
         }
       }

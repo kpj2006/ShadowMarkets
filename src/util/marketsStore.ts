@@ -26,11 +26,15 @@ export async function appendMarket(filePath: string, rec: CreatedMarketRecord): 
   await saveMarkets(filePath, doc);
 }
 
-export async function markSettled(filePath: string, market: string): Promise<void> {
+export async function markSettled(
+  filePath: string,
+  market: string,
+  result: { yesWinner: boolean; reasoning: string; signature: string },
+): Promise<void> {
   const doc = await loadMarkets(filePath);
   const idx = doc.markets.findIndex((m) => m.market === market);
   if (idx >= 0) {
-    doc.markets[idx] = { ...doc.markets[idx], settled: true };
+    doc.markets[idx] = { ...doc.markets[idx], settled: true, result };
     await saveMarkets(filePath, doc);
   }
 }

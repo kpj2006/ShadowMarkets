@@ -10,7 +10,7 @@ export class GithubPrivateSource implements EventSource {
       repo: string;
     },
     private readonly consumedPath: string = "./data/github-consumed.json",
-  ) {}
+  ) { }
 
   private async loadConsumed(): Promise<Set<number>> {
     try {
@@ -51,7 +51,7 @@ export class GithubPrivateSource implements EventSource {
     const consumed = await this.loadConsumed();
     if (consumed.has(first.number)) return null;
 
-    const endTimeSeconds = nowSeconds() + 60 * 30; // 30 min demo window
+    const endTimeSeconds = nowSeconds() + 120; // 2 min for quick testing
     const question = `Will issue #${first.number} (“${first.title}”) be CLOSED before the deadline?`;
 
     consumed.add(first.number);

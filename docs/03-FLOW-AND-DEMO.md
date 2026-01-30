@@ -247,6 +247,7 @@ Next Step: Run `npm run seed-liquidity` to activate trading
 
 #### Command
 ```bash
+$env:MARKET_ADDRESS="yout created address";
 npm run seed-liquidity
 ```
 
@@ -382,6 +383,7 @@ npm run create-market -- --check YOUR_MARKET_ADDRESS
 
 #### Command
 ```bash
+
 npm run settle-market
 ```
 

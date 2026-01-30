@@ -31,15 +31,15 @@ export async function createMarketsWithCustomOracle(
   const out: Array<{ market: PublicKey; signature: string }> = [];
 
   for (const question of qs) {
-    const res = await client.createMarketWithCustomOracle({
+    const res = await client.createMarketV2WithCustomOdds({
       question,
       initialLiquidity: params.initialLiquidity,
       endTime: params.endTime,
-      collateralMint: params.collateralMint,
-      settlerAddress: params.settlerAddress,
-      yesOddsBps: params.yesOddsBps,
+      collateralTokenMint: params.collateralMint,
+      oracle: params.settlerAddress,
+      yesOddsBps: params.yesOddsBps || 5000, // Default to 50% if undefined
     });
-    out.push({ market: res.market, signature: res.signature });
+    out.push({ market: new PublicKey(res.market), signature: res.signature });
   }
 
   return out;

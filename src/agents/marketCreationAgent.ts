@@ -12,6 +12,11 @@ export type CreatedMarketRecord = {
   question: string;
   event: PrivateEvent;
   settled?: boolean;
+  result?: {
+    yesWinner: boolean;
+    reasoning: string;
+    signature: string;
+  };
 };
 
 export class MarketCreationAgent {
@@ -24,7 +29,7 @@ export class MarketCreationAgent {
       oraclePubkey: PublicKey;
       yesOddsBps?: number;
     },
-  ) {}
+  ) { }
 
   async createNextMarket(marketDurationSeconds: number): Promise<CreatedMarketRecord | null> {
     const event = await this.eventSource.nextEvent();
