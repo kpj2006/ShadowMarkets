@@ -3,7 +3,3 @@ dist/
 .env
 .DS_Store
 
-# runtime state
-data/markets.json
-data/token-mint.json
-

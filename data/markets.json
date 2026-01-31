@@ -1,0 +1,477 @@
+{
+  "markets": [
+    {
+      "market": "EeodgdheNLmB3ANZwa4gKqSjqEFhU3ik8zy1W7TeMB19",
+      "signature": "3GoHqoAy26P26tmMyL3T26BiqXoSQZ5T7hRj4CfhAxHwgMK9qffMVxYhMYWeVwuP6xMHHrKmEFK1GeExmUr83phv",
+      "createdAtSeconds": 1769730666,
+      "endTimeSeconds": 1769730784,
+      "question": "Will issue #26 (“test”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#26@1769730784",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 26,
+        "yesMeansClosed": true,
+        "question": "Will issue #26 (“test”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769730784
+      },
+      "settled": true
+    },
+    {
+      "market": "9nvZhpFwP99L8tdxkycKjD8no74pQVcN6tC8iT5SFH8K",
+      "signature": "4GyHJk7JGtAdETe7hDzxc5HqqdeC8X5J2oMvcN82ut1tVM988Xf5jbapYYmmCEkXJXSjgLRQmQRLmheuCQLhYE4J",
+      "createdAtSeconds": 1769731436,
+      "endTimeSeconds": 1769731553,
+      "question": "Will issue #27 (“test”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#27@1769731553",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 27,
+        "yesMeansClosed": true,
+        "question": "Will issue #27 (“test”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769731553
+      },
+      "settled": true
+    },
+    {
+      "market": "AsLscgNRvb4yteNm9DmUWQFAqR1Dpv368pGyNoBJ6DWR",
+      "signature": "5eABBZvGfgSFvq4XYzTbS3WafR7mijm9UgMMNwRfA6F2TirCdKNTjyvwkYwrqSm85UVuBy5M81Yz5s1P3tcRrULg",
+      "createdAtSeconds": 1769757335,
+      "endTimeSeconds": 1769757449,
+      "question": "Will issue #28 (“test spl token”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#28@1769757449",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 28,
+        "yesMeansClosed": true,
+        "question": "Will issue #28 (“test spl token”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769757449
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "LLM decision (confidence=0.95): The market deadline is 1769757449 seconds (2026-01-30 07:17:29 UTC). The evidence was collected at 1769759064 seconds (2026-01-30 07:44:24 UTC), which is after the deadline. At the time of evidence collection, GitHub issue #28 was in an 'open' state with 'closed_at' as null. This indicates the issue was not closed by the deadline.",
+        "signature": "4qj97w9paKaY3FSHDoFR73SLqTYAunzprRMVCdFxBUUbM5UTfGeMpbzDJ9eYa2Jj8mEHTWf1fLDq8nhfPpn8Cxw6"
+      }
+    },
+    {
+      "market": "4rGQSTNenRQUoYBE3WaZpXLQPrNcRUGiTLmon9zpRTy4",
+      "signature": "2dKrP3krXtHx4g1JiPYzJPkC7mqkoAV1uqv194iZDyybwnDiE4jL4RRNuQFnFLYe2dqpDMTMDmxDk2fsXBRA4edZ",
+      "createdAtSeconds": 1769761033,
+      "endTimeSeconds": 1769761149,
+      "question": "Will issue #29 (“test sp token”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#29@1769761149",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 29,
+        "yesMeansClosed": true,
+        "question": "Will issue #29 (“test sp token”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769761149
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "LLM decision (confidence=1): The evidence was collected at 1769761152 seconds, which is after the market deadline of 1769761149 seconds. At the time of collection, the GitHub issue #29 was in an 'open' state with 'closed_at' as null. This indicates the issue was not closed by the deadline, therefore the 'yesDefinition' condition is not met.",
+        "signature": "2Zn5iidscAPGgzWWnjY8Lw8mWkAjsgZaGEeAuxf2cENSYbRortfKj8EtJ6fa4xoKDRuS9JKdYjK4aMdqFSbtJ1ta"
+      }
+    },
+    {
+      "market": "4AQy7W3geuSB7RJjZooKaT5wDvcdK2dy1bHa3hpXcNA4",
+      "signature": "5wN34ZtBSpXSaDxUh2LhbXd993W542qnqeQzBVWoF7K7aoB7o7m7NGQikAjXnqnAe7HKva2CRgoUpScqy6qVX1LD",
+      "createdAtSeconds": 1769777138,
+      "endTimeSeconds": 1769777255,
+      "question": "Will issue #30 (“prediction market”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#30@1769777255",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 30,
+        "yesMeansClosed": true,
+        "question": "Will issue #30 (“prediction market”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769777255
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "LLM decision (confidence=0.98): The evidence was collected at 1769777262 seconds, which is after the market deadline of 1769777255 seconds. At the time of collection, the GitHub issue #30 was in an 'open' state with 'closed_at' as null. This conclusively indicates that the issue was not closed by the deadline. Therefore, the condition for 'YES' (issue being closed at/after the deadline) is false, making 'NO' the winner.",
+        "signature": "4vDHPRbTeLJdPDEaVG6CWkaTaJSaoxXwfGDvQzQ1pwsSScaJK8CZ14RpcvLkLGsttLXvg95yTeTKibwWuYXqEzF"
+      }
+    },
+    {
+      "market": "AfrXGQjzVMUsZmn2rLKMEzmVMaAQFAKbkEoG5wM3Qcjt",
+      "signature": "4KhPdQEXkD4EYDVX61Y1kgEpQcvNzb1uMTq9jAB5RYGfwNrQLwpicRaHnkx7bNRGcRQYYqSfSDRxYGGnoiFwwkF8",
+      "createdAtSeconds": 1769780086,
+      "endTimeSeconds": 1769780204,
+      "question": "Will issue #33 (“ui test”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#33@1769780204",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 33,
+        "yesMeansClosed": true,
+        "question": "Will issue #33 (“ui test”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769780204
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": true,
+        "reasoning": "Deterministic rule: issue state=closed; YES means closed at deadline.",
+        "signature": "3rwEAx641BedUu7vjN1QmyQhsbDFau4FisUYGfMAja91YW4C9FmL93awB79ycbosLYbxCp4vqJuoNBhpfBNvY21Y"
+      }
+    },
+    {
+      "market": "HPNTi8wMyJ7wVY8oQgWNN2sthG4xZsPgM6tbMkc7yvn4",
+      "signature": "2joKZVULyyRReSavafPd4bSmZEXcUapSKzMQZy3VSFfRRw1TBZagbkWYRPHRXE69f5fKCahfiqhZDwnrD8povGCd",
+      "createdAtSeconds": 1769780133,
+      "endTimeSeconds": 1769780251,
+      "question": "Will issue #27 (“test”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#27@1769780251",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 27,
+        "yesMeansClosed": true,
+        "question": "Will issue #27 (“test”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769780251
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=open; YES means closed at deadline.",
+        "signature": "RhdkE4U1JLMoUuwSFYgpZSPMKAo3JYShn3AYVSAsVx45qhPBKkJCipdgcpbmDWayPcd93uvsMccbLNYVgNb8KLT"
+      }
+    },
+    {
+      "market": "Cp4niJDK8c6mve8eNJyZqE3fekYVvK8PvtAZQygAwxf2",
+      "signature": "QtZXXFaPaj1U3PoULZomqiJZwVfPbtqhgbpos7EtWuAy1WNqkaUxcht1mDARgBQnTVV7gNCdqSgZAB1DiMa9Res",
+      "createdAtSeconds": 1769780430,
+      "endTimeSeconds": 1769780547,
+      "question": "Will issue #35 (“test”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#35@1769780547",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 35,
+        "yesMeansClosed": true,
+        "question": "Will issue #35 (“test”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769780547
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "LLM decision (confidence=0.5): The evidence indicates that issue #35 is currently 'open' and 'closed_at' is null, meaning it has not been closed. The evidence does not provide any information about a deadline or any future closure event. Therefore, it is inconclusive whether the issue 'will be CLOSED before the deadline', making the 'yes' condition unfulfilled based on the available data.",
+        "signature": "ttGDBReVbNgKT59o2fynH59x8DF6SpGRLSLms961FXrNnqgrKPqXLnJX5o1PYYuFhCVdfD6Zr2G1RhaGzHmzaP5"
+      }
+    },
+    {
+      "market": "2uJRNVG7ugqpUxduFTsWxem6thW5L7a9MTsTsJBN297V",
+      "signature": "Tm2MTSdmgNiWFdhm4zqhSmvQ2femEAV2Dprz1MrVAW8vrf8w27BmG89cryewrtQ4mVZ7i1VKeyLupd3TGSYJj69",
+      "createdAtSeconds": 1769782379,
+      "endTimeSeconds": 1769782496,
+      "question": "Will issue #36 (“testing of  ui”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#36@1769782496",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 36,
+        "yesMeansClosed": true,
+        "question": "Will issue #36 (“testing of  ui”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769782496
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=open; YES means closed at deadline.",
+        "signature": "2HKKZ68iqBau4QyJead2F8mN2ZC4NiHcGBY5MrrGvPa2onmyhfPkxk1J4QZAfVq1F7LJ21vKGLHFExJRtCGMxZcV"
+      }
+    },
+    {
+      "market": "A95U4Dg8THrpPjjBXrikrrHQ7jDHfEe2kRWdnCY4nuua",
+      "signature": "3LiCaeJHLUynXAe9Ed2tHrVqicEqEvgAhMvivXGcwDmagq8K4MccKHmB8ufSNBqeNCVqAz8mFk4s1TBnLEfuTMZb",
+      "createdAtSeconds": 1769789806,
+      "endTimeSeconds": 1769789925,
+      "question": "Will issue #37 (“test ui”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#37@1769789925",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 37,
+        "yesMeansClosed": true,
+        "question": "Will issue #37 (“test ui”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769789925
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=open; YES means closed at deadline.",
+        "signature": "62GgPkj7eU2q1XGbxtxDTzGGH2Shnz4mWZ5JPPeUDgDfdZ4PtsWwp9V635tGNHpWv6gTZYTsq8zT1Z2Z4u2jZHcW"
+      }
+    },
+    {
+      "market": "GchjxhNMKBhHH2zjiTX6Z38aJzjdahbtEAtXDhGXoGJG",
+      "signature": "3VcGpiqm8Graqt24VDax8vVW9cJT3waQUwyZuXS5Y2bNgA2Z3jodhPxnryBqZWgCkGGGNnx2UzFmt9i1K6Exvqd8",
+      "createdAtSeconds": 1769792309,
+      "endTimeSeconds": 1769792424,
+      "question": "Will issue #38 (“adfae”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#38@1769792424",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 38,
+        "yesMeansClosed": true,
+        "question": "Will issue #38 (“adfae”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769792424
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=open; YES means closed at deadline.",
+        "signature": "6jYRcxUyg2Wn7SMziybs6RHRdv7sBfHRaJvUXR5Wf9VLxmW8saT6WzpNW1qRGQCWAYbmMmBAEvEhmiAg8dGQWjh"
+      }
+    },
+    {
+      "market": "EHXVmkZ2BZfcnZMu6YG3AGjiLEpAnmb8FZL8qM7vWPsL",
+      "signature": "vjEfgLqyQsgsV22WaAq5vGcCCgvGsWmmx2w3By8u3P9TKRw3j6cx4WHZL1PAFFeQT3sYgcQHyb2m7ddc14zSHTF",
+      "createdAtSeconds": 1769792907,
+      "endTimeSeconds": 1769793022,
+      "question": "Will issue #39 (“test open”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#39@1769793022",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 39,
+        "yesMeansClosed": true,
+        "question": "Will issue #39 (“test open”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769793022
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=open; YES means closed at deadline.",
+        "signature": "2zLY6YxvugyfVQhbhm18NeHcQA2mS2pbTfHFQbwfUo6Mmk57K9gQNQzw7Qxr6HLs5GsfjVitJha8kBNHNT7wcP2Q"
+      }
+    },
+    {
+      "market": "6GKgcx6AfH7vjHLGquzEfRWPPhiXmaFutD1sciPN3tr5",
+      "signature": "3sWUuvgDy3UKukHHeq46cE2e8i7rTbVSAUFqXB244EWWfWKJS3epM28EukqP1Sy4fF5u5JAVMYWSVSzuj9zAaaY6",
+      "createdAtSeconds": 1769793383,
+      "endTimeSeconds": 1769793500,
+      "question": "Will issue #40 (“test”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#40@1769793500",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 40,
+        "yesMeansClosed": true,
+        "question": "Will issue #40 (“test”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769793500
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=open; YES means closed at deadline.",
+        "signature": "3dosrZVBLh2mA7KgyuW5hkvWH5kg3HAuCiHiECN1yFTJDep7E8UV1Y77zRyJY9MYi1Tmz5KoqrPwVSYeJkzKDEdn"
+      }
+    },
+    {
+      "market": "BdDCkuhHZy2AQ3aHyWPjhTDAb6L21GfrmCV6ZbR8PGak",
+      "signature": "2ukqXcoK9Z6okmcQuiCbmtAnwuRsXKPrEXv2fxL6vP3qSYq2Q6XihFTreoWHF3AjvQ9pRadQWWFPod77rU7JTpZA",
+      "createdAtSeconds": 1769794574,
+      "endTimeSeconds": 1769794690,
+      "question": "Will issue #42 (“tiel”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#42@1769794690",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 42,
+        "yesMeansClosed": true,
+        "question": "Will issue #42 (“tiel”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769794690
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=open; YES means closed at deadline.",
+        "signature": "45PTpPHDtLmJRjsH9SwSJZt7pEADawhNLp11CQ2kgwhYcPshqRsvLSE6NPeigh3cqGKWdopNU5b7rURpQ73UCncT"
+      }
+    },
+    {
+      "market": "4X3j2DGkHmzN1FMHyyKFXgTaXzFw1ULT6PUxJ8gwpuBt",
+      "signature": "5UBoLcLaap7qnTuij6HFjz7ZuWZh8W4VmRYWwMXRjPCWSsjK5ZgWkaukV69tq3Dr8pK6hWjX9tWYSbzc4gh1REd6",
+      "createdAtSeconds": 1769795169,
+      "endTimeSeconds": 1769795283,
+      "question": "Will issue #41 (“test”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#41@1769795283",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 41,
+        "yesMeansClosed": true,
+        "question": "Will issue #41 (“test”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769795283
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=open; YES means closed at deadline.",
+        "signature": "5TVsKWm6J7qNdLeoFrrarQ64zDjSQjsFnyZFBP26Cx7dwLnYxQvyXN7kr3AhNKs8gn7LQafEqn1qvAQ5mHpxBR6X"
+      }
+    },
+    {
+      "market": "37M5YmafKqvDBACXnHAmcT9HeGZcYkv9zTyCRSXHdccL",
+      "signature": "5eSDUt8XNr267Fc6oCHjWEgya1PLFA95WH78B6qTWj9BPePMgP8RGbBzooNJGrHVugrMHspwCTrw3HwFJGGJGBWC",
+      "createdAtSeconds": 1769795211,
+      "endTimeSeconds": 1769795325,
+      "question": "Will issue #43 (“test”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#43@1769795325",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 43,
+        "yesMeansClosed": true,
+        "question": "Will issue #43 (“test”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769795325
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=open; YES means closed at deadline.",
+        "signature": "2yGTRwP8znMD92hpNDqTeHpuozTj3ihLwFdDMPE1ru62xLZBwBQouz1x6dPXaGSsJEgPCtwxQtjQyf5B6JGAZafR"
+      }
+    },
+    {
+      "market": "98cqrdffu6CcxrnvHHBqaDPkXLQ3uVcQASUGGtL6UHU2",
+      "signature": "2cdP5f2haAGbtNG7MMis9qAatb3kLMPizMpzMWPUwza3gJqU13uQXzUvY1bvaRxiQDu2PvXPMaeZW3mKnuZeEydo",
+      "createdAtSeconds": 1769796154,
+      "endTimeSeconds": 1769796270,
+      "question": "Will issue #44 (“issue title”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#44@1769796270",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 44,
+        "yesMeansClosed": true,
+        "question": "Will issue #44 (“issue title”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769796270
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": true,
+        "reasoning": "Deterministic rule: issue state=closed; YES means closed at deadline.",
+        "signature": "4pjpFsr4epdWuFDvzKKM3rpiAgQ2hETLkb3XfhUGAwzkGEJwshNhfqNvjhDVpt5aJzs6czWjsscSbkars1SmKbh6"
+      }
+    },
+    {
+      "market": "7TjUQj454hx1rBPLjJkbpAn8rCy5mo29vg2gveSXThih",
+      "signature": "3Uxtx9cQXEWGJQGFq1pirhZSV95saqi4Jrmugcs4gtoLkHPGNtEe7UfejUFrnc8nMEQN9ook8M1n6S814yxX8tJm",
+      "createdAtSeconds": 1769835642,
+      "endTimeSeconds": 1769835761,
+      "question": "Will issue #46 (“tirle”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#46@1769835761",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 46,
+        "yesMeansClosed": true,
+        "question": "Will issue #46 (“tirle”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769835761
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=undefined; YES means closed at deadline.",
+        "signature": "2DNpnPEPbpuM2h7wCqcmMKwYXhtCTF4CdfXj9dqmguN2uHrkGujTRedUPRRbFhQrUt7cvBzVSCRsA6wJSqH7mgkD"
+      }
+    },
+    {
+      "market": "9tsHTCukZCcFXiQXECiVEUPWheRVMLy9Yh1yotYiMpmt",
+      "signature": "5ccA11anM7LNwqsfeTR1uRS8BxbVGTfzEsSfRxis1x9N9JAjQAjfCdk5PsVaHoa68So7umPKBaRxDY8DpFQhoKQz",
+      "createdAtSeconds": 1769854763,
+      "endTimeSeconds": 1769854879,
+      "question": "Will issue #47 (“title”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#47@1769854879",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 47,
+        "yesMeansClosed": true,
+        "question": "Will issue #47 (“title”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769854879
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "LLM decision (confidence=0.95): The market deadline, derived from the eventId 'github:kpj-2006/test#47@1769854879', is 2026-01-31T05:01:19Z. The evidence was collected at 2026-01-31T05:01:58Z, which is after the market deadline. At the time of evidence collection, the GitHub issue #47 was in an 'open' state and its 'closed_at' field was null. According to the 'yesDefinition', 'YES wins if the event condition [issue #47 be CLOSED] is true at/after the market deadline.' Since the issue was still open after the deadline, the condition for YES is not met. Therefore, NO wins.",
+        "signature": "4ZieQteGdfkgoys4g7Tzy6HPS34FVJJurKnHNc33gbR7RMCuZ17n1w1evoeFWtRQnYpg7R7ehqwa11Sn6T7K46gZ"
+      }
+    },
+    {
+      "market": "EYhqhPht1XgyvB3RDeh1i3jfdbVyyzC5tM3Y3pxmeHgD",
+      "signature": "4FL51MQYc3UzCf5irUyyBrMF6pAYWcbdCAXGwaKuVJg4byeottRjuRcS1adcg5PbAf59WwYicb4eMFZEQHsbVLEe",
+      "createdAtSeconds": 1769854968,
+      "endTimeSeconds": 1769855083,
+      "question": "Will issue #48 (“title test”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#48@1769855083",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 48,
+        "yesMeansClosed": true,
+        "question": "Will issue #48 (“title test”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769855083
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "LLM decision (confidence=0.5): The evidence confirms that issue #48 is closed as of 2026-01-31T10:23:17Z. However, the market deadline is not provided in the evidence. Without knowing the deadline, it is impossible to determine if the issue was closed *before* the deadline, which is the condition for YES to win. Therefore, the evidence is inconclusive, and the most defensible outcome is NO.",
+        "signature": "4x558zga3nARDzQ6ReyU89qoBazewB6VkBETbkzrXXBS4Nzd7JsATvuMPBkpybtMnnnSKjASduXwNLe8RzyB3dty"
+      }
+    },
+    {
+      "market": "CuqDSWBJnU4V2vKa3NS6rykFxVJVBsJTWe6LiJbY6YCG",
+      "signature": "4JTTo9oQParyjaNdpHXLw2L1tsxAFZNsV3JgkvqFNbYB94B78C8MAbTsCMyBWRqB4VfsQLkpuujeKzv3i6JS15RV",
+      "createdAtSeconds": 1769863443,
+      "endTimeSeconds": 1769863559,
+      "question": "Will issue #49 (“test ui”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#49@1769863559",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 49,
+        "yesMeansClosed": true,
+        "question": "Will issue #49 (“test ui”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769863559
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": true,
+        "reasoning": "LLM decision (confidence=1): The evidence shows that issue #49 was closed at 2026-01-31T12:45:05Z. The market deadline, derived from the eventId 'github:kpj-2006/test#49@1769863559', is 1769863559 seconds, which converts to 2026-01-31T12:45:59Z. Since the issue was closed at 2026-01-31T12:45:05Z, it was indeed closed before the deadline of 2026-01-31T12:45:59Z. Therefore, the condition 'Will issue #49 be CLOSED before the deadline?' is true.",
+        "signature": "3wD4fSWY6FJxrziHKwgUsztmvAafutCufGF2KqFx14EbjuRTVJ6Z6r63YTTL5ZLBvaJnXZgEPh3HKEVvLVnKSqxj"
+      }
+    }
+  ]
+}
