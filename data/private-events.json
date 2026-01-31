@@ -15,6 +15,22 @@
       "expectedYes": true,
       "question": "Will the production deployment be successful today?",
       "endTimeSeconds": 1738250000
+    },
+    {
+      "kind": "localBooleanSignal",
+      "id": "e3-test-vault-fix",
+      "signalKey": "test_vault_signal",
+      "expectedYes": true,
+      "question": "Will the vault PDA issue be resolved?",
+      "endTimeSeconds": 1769900000
+    },
+    {
+      "kind": "localBooleanSignal",
+      "id": "e4-short-duration",
+      "signalKey": "short_duration_signal",
+      "expectedYes": true,
+      "question": "Will this 2-minute market resolve correctly?",
+      "endTimeSeconds": 1799900000
     }
   ],
   "signals": {
