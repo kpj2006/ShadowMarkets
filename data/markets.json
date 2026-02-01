@@ -639,6 +639,12 @@
         "yesMeansClosed": true,
         "question": "Will issue #102 (“gberafgarg”) be CLOSED before the deadline?",
         "endTimeSeconds": 1769949019
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=undefined; YES means closed at deadline. | LLM failed, fallback used: Gemini request failed: 429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 55.852064227s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"55s\"\n      }\n    ]\n  }\n}\n",
+        "signature": "4zbohJ5b9QwuusPuo5Q5c3jG7TMioNpUDoFrE97quVRehHSipE9mAibe8vGG7ct5baaWMvNxErSAXHEhyry8xDEQ"
       }
     },
     {
@@ -656,6 +662,12 @@
         "yesMeansClosed": true,
         "question": "Will issue #103 (“xzdfvdh”) be CLOSED before the deadline?",
         "endTimeSeconds": 1769949073
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=undefined; YES means closed at deadline. | LLM failed, fallback used: Gemini request failed: 429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 51.840665804s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"51s\"\n      }\n    ]\n  }\n}\n",
+        "signature": "4kcRAmzYdovn84EupNfydMnj2R6Q8SWqv4yDRrWQzopQVTmnDXTR8EXa6MVLDZqXEWxYvQ8Wmo2ANhiJvo5Bsina"
       }
     },
     {
@@ -673,6 +685,12 @@
         "yesMeansClosed": true,
         "question": "Will issue #104 (“xcfbfghth”) be CLOSED before the deadline?",
         "endTimeSeconds": 1769949442
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=undefined; YES means closed at deadline. | LLM failed, fallback used: Gemini request failed: 429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 47.89688358s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"47s\"\n      }\n    ]\n  }\n}\n",
+        "signature": "5R8z6hmUhAw9N7C364dzYtD157Jv9x5vEbQ8qTvEXR2eUGSiKm1Y26ktChs5SAW1Rwtxsh5FCeaX722u2rMmuzJ3"
       }
     },
     {
@@ -708,6 +726,81 @@
         "yesMeansClosed": true,
         "question": "Will issue #105 (“dghthdryh”) be CLOSED before the deadline?",
         "endTimeSeconds": 1769951146
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=undefined; YES means closed at deadline. | LLM failed, fallback used: Gemini request failed: 429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 40.982047846s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"40s\"\n      }\n    ]\n  }\n}\n",
+        "signature": "3va9cLtCYJzQi9QjoR5WHy8GhwZ7gwLqChrm1VuhQAZvzSdsTzmb8GC8XehMRxokvC4mhp1SBuyb6dyq5QxPJttk"
+      }
+    },
+    {
+      "market": "9tjmrWpSxveEZt4tb37GC9VrqUCf2pNQtd7jX1iP4Vep",
+      "signature": "37WdMFgaE1XTD6CuBgLNc811grjkm5SFh4AVbK5rAzUZgYi63hB8ankEkP9P7MfA47XsRvgpxcG2qCPM6jiqbLeG",
+      "createdAtSeconds": 1769953472,
+      "endTimeSeconds": 1769953587,
+      "question": "Will issue #106 (“ui improvement”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#106@1769953587",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 106,
+        "yesMeansClosed": true,
+        "question": "Will issue #106 (“ui improvement”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769953587
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=undefined; YES means closed at deadline. | LLM failed, fallback used: Gemini request failed: 429 {\n  \"error\": {\n    \"code\": 429,\n    \"message\": \"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\\nPlease retry in 36.733706577s.\",\n    \"status\": \"RESOURCE_EXHAUSTED\",\n    \"details\": [\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.Help\",\n        \"links\": [\n          {\n            \"description\": \"Learn more about Gemini API quotas\",\n            \"url\": \"https://ai.google.dev/gemini-api/docs/rate-limits\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.QuotaFailure\",\n        \"violations\": [\n          {\n            \"quotaMetric\": \"generativelanguage.googleapis.com/generate_content_free_tier_requests\",\n            \"quotaId\": \"GenerateRequestsPerDayPerProjectPerModel-FreeTier\",\n            \"quotaDimensions\": {\n              \"location\": \"global\",\n              \"model\": \"gemini-2.5-flash\"\n            },\n            \"quotaValue\": \"20\"\n          }\n        ]\n      },\n      {\n        \"@type\": \"type.googleapis.com/google.rpc.RetryInfo\",\n        \"retryDelay\": \"36s\"\n      }\n    ]\n  }\n}\n",
+        "signature": "3HpW27RgvxvhCDuPJ5LxCSkqsRgiJLwdvZQNESK6oocKLA7oq1D2c8He1P8DFzostpXPfMbDuzS8XuC3Pi8PWHhn"
+      }
+    },
+    {
+      "market": "46LnRcxzDGupkrmTcjitmE5b5Tox4vsUAQkKPnGZ3g9m",
+      "signature": "24n1pF6kqB1cs1uM8uVfRiecujhGa1mW2pEsfpvf7Fx9YnTyAsREFRn7Zgty2FKxvQ5fDxWa5phfbv1tpsekhKww",
+      "createdAtSeconds": 1769955084,
+      "endTimeSeconds": 1769955201,
+      "question": "Will issue #108 (“zx”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#108@1769955201",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 108,
+        "yesMeansClosed": true,
+        "question": "Will issue #108 (“zx”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769955201
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": false,
+        "reasoning": "Deterministic rule: issue state=open; YES means closed at deadline.",
+        "signature": "5xQaB8pZ9cRtYs3uM6vNfHiecujhGa1mW2pEsfpvf7Fx9YnTyAsREFRn7Zgty2FKxvQ5fDxWa5phfbv1tpsekhLmN"
+      }
+    },
+    {
+      "market": "7EzPVZYshUXs6rscrF3PztKHwCS6A5aW7U4KLAiY7cb9",
+      "signature": "sXassqBKgRAm7jLyew5wFgeCwTC4bgShN9jjVVpmLBiEPXh8vL43cZFup9Gqg5TxYaLbcSdQ5jMCdVEZ59pPBAx",
+      "createdAtSeconds": 1769956538,
+      "endTimeSeconds": 1769956655,
+      "question": "Will issue #109 (“zk proof add”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#109@1769956655",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 109,
+        "yesMeansClosed": true,
+        "question": "Will issue #109 (“zk proof add”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769956655
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": true,
+        "reasoning": "Manual settlement: YES outcome selected",
+        "signature": "gtAhspyfSebhF6C3B53P1s7zNZWFilyzMYpsPQBfrcRkufuPGoXs17jiMxFkUQsf7gXpuYdLUbq9qexdz9UfYGZo"
       }
     }
   ]

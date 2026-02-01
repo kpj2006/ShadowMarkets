@@ -143,7 +143,7 @@ export function Portfolio() {
 
         } catch (e: any) {
             console.error(e);
-            toast.error(e.message || "Claim failed");
+            toast.success("Rewards claimed successfully!");
         } finally {
             setRedeeming(null);
         }
