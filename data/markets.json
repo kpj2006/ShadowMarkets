@@ -623,6 +623,40 @@
         "question": "Will the following statement be true: \"The price of SOL will reach $200 by end of week\"?",
         "endTimeSeconds": 1769948975
       }
+    },
+    {
+      "market": "D9sDL52c9EwFtrWRYKhPDPARUibVK7wy3RZ2Fjc6J915",
+      "signature": "JwMJnJbxswj5WMWfH2159g36bzCM3qrMhVG1299kDisgUAH8quqZyPKMw2T3rQDYLM6A47pCMdHPKx4trWSJfjU",
+      "createdAtSeconds": 1769948902,
+      "endTimeSeconds": 1769949019,
+      "question": "Will issue #102 (“gberafgarg”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#102@1769949019",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 102,
+        "yesMeansClosed": true,
+        "question": "Will issue #102 (“gberafgarg”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769949019
+      }
+    },
+    {
+      "market": "5Rq5rXoBaXhz8uNwuo3TTTyLivXUXvnTjVXAdXSSLUZT",
+      "signature": "53XEcqabD2bsib22oaWcnGGLP4oJJAAcrY9ANzAFJVTqrnXj2DD7p7CrFKvoqR9noeSmPgwoLnGkQXTPwAmYEbM6",
+      "createdAtSeconds": 1769948955,
+      "endTimeSeconds": 1769949073,
+      "question": "Will issue #103 (“xzdfvdh”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#103@1769949073",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 103,
+        "yesMeansClosed": true,
+        "question": "Will issue #103 (“xzdfvdh”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769949073
+      }
     }
   ]
 }

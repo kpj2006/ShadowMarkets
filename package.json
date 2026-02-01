@@ -10,7 +10,7 @@
     "create-market": "tsx scripts/create-market.ts",
     "seed-liquidity": "tsx scripts/seed-liquidity.ts",
     "settle-market": "tsx scripts/settle-market.ts",
-    "run:market-agent": "tsx scripts/run-market-agent.ts",
+    "run:github-market-agent": "tsx scripts/run-github-market-agent.ts",
     "run:oracle-agent": "tsx scripts/run-oracle-agent.ts",
     "run:discord-bot": "tsx scripts/run-discord-bot.ts",
     "run:discord-market-agent": "tsx scripts/run-discord-market-agent.ts",
