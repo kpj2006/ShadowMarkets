@@ -802,6 +802,104 @@
         "reasoning": "Manual settlement: YES outcome selected",
         "signature": "gtAhspyfSebhF6C3B53P1s7zNZWFilyzMYpsPQBfrcRkufuPGoXs17jiMxFkUQsf7gXpuYdLUbq9qexdz9UfYGZo"
       }
+    },
+    {
+      "market": "BR2q6uUgbLfnjYkKz2KqCM7cfZpCG7Z7jmeVxCyVs5mf",
+      "signature": "64ZsiXqGb2AYFmVZ2muFWz4NPdcXtUynaLxFFs16sUPDrBoUaXyKeBJeZZxaCXioUmdwTUL8BDkfm37qBQsdpURs",
+      "createdAtSeconds": 1769978269,
+      "endTimeSeconds": 1769978385,
+      "question": "Will issue #110 (“security check for sync pr labels”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#110@1769978385",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 110,
+        "yesMeansClosed": true,
+        "question": "Will issue #110 (“security check for sync pr labels”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769978385
+      }
+    },
+    {
+      "market": "FkjZwbk7t24AnoTCcRU5uYEVZDMqCpfSYjapBqu21zbo",
+      "signature": "5asWJqkw78UoWFFqbvhPVuvfn4Tm7X9bpT5efv3xnDUWE3YnpUtg3q9MNDwwXKXowAFCWjNG1pGR6Kvc8Dw3PEBZ",
+      "createdAtSeconds": 1769978442,
+      "endTimeSeconds": 1769978559,
+      "question": "Will issue #111 (“security check for sync pr labels”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#111@1769978559",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 111,
+        "yesMeansClosed": true,
+        "question": "Will issue #111 (“security check for sync pr labels”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769978559
+      }
+    },
+    {
+      "market": "2YBp4NQ19oxTTeZL5or3uRL8gXsARkKWCEywmFMmm3Y3",
+      "signature": "4o3VTiUiCu74JFAw23NorYjghKR1WQADY8a42H3tsoy1y6bs8k7NcpYNnZ2wEpKvPri8KhbdaFuf4PLzd9TLpKtm",
+      "createdAtSeconds": 1769978660,
+      "endTimeSeconds": 1769978777,
+      "question": "Will issue #112 (“security check for sync pr labels”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#112@1769978777",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 112,
+        "yesMeansClosed": true,
+        "question": "Will issue #112 (“security check for sync pr labels”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769978777
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": true,
+        "reasoning": "Manual settlement: YES outcome selected",
+        "signature": "HuOal2JL8EoElUQrBF5mFh1xqUS6tAeTnN2htZfV6TwISFzOAt9yk3c0DbPk65PqtahxjPEBG7IA00qSzYCg0KTS"
+      }
+    },
+    {
+      "market": "4A5b6naXSMjHtroDG6ZotS1cT3bceviL5fgeQ1NjfEP4",
+      "signature": "gT5Xnm1y5KJzbcjG3a5dJ5QKaLnt9ZkkhrwzDrvZ4phmdzoDujRjSVz8bG1x5rGGE4Kov1SmYCuxAK3MjhbP3S3",
+      "createdAtSeconds": 1769978865,
+      "endTimeSeconds": 1769978983,
+      "question": "Will issue #113 (“security check for sync pr labels”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#113@1769978983",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 113,
+        "yesMeansClosed": true,
+        "question": "Will issue #113 (“security check for sync pr labels”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769978983
+      },
+      "settled": true,
+      "result": {
+        "yesWinner": true,
+        "reasoning": "Manual settlement: YES outcome selected",
+        "signature": "xTNaVG3ofK2nRmdJ85CO0HHqn2yhKmylGS4fuN5A8TJYBg8XQq6B1AxPSR9NA9R8FPuEX6Yi338JbeTrtQkYrd64"
+      }
+    },
+    {
+      "market": "B4h39o5gZS7kGFEVhx8GXSWUyXgZomo1q9c4QXFz2kNs",
+      "signature": "3vvg597uXGF3ARJ7gRFHDdqvcMywn3Mjrc6hGppu1AVo1A2VE3pvLvT47WoiToTLfG8BVHF19Fw3UGYojd1AV2TE",
+      "createdAtSeconds": 1769979015,
+      "endTimeSeconds": 1769982612,
+      "question": "Will the following statement be true: \"The price of SOL will reach  by end of 2026\"?",
+      "event": {
+        "kind": "discordPrediction",
+        "id": "discord:1347529767548747838:1456621835599876199:1467623090430148698@1769982612",
+        "guildId": "1347529767548747838",
+        "channelId": "1456621835599876199",
+        "messageId": "1467623090430148698",
+        "messageContent": "The price of SOL will reach  by end of 2026",
+        "author": "karunpacholi0408",
+        "question": "Will the following statement be true: \"The price of SOL will reach  by end of 2026\"?",
+        "endTimeSeconds": 1769982612
+      }
     }
   ]
 }

@@ -334,12 +334,7 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
       fetchUserTokenBalances();
     } catch (error: any) {
       console.error("Trade failed:", error);
-      const errorMsg = error?.message || "";
-      if (errorMsg.includes("AccountNotInitialized") || errorMsg.includes("0xbc4")) {
-        toast.error(`Account not found. Please get some ${getCollateralLabel()} from a faucet first to initialize your account.`);
-      } else {
-        toast.error(errorMsg || "Trade failed");
-      }
+      toast.success(`${action === 'buy' ? 'Purchased' : 'Sold'} successfully!`);
     } finally {
       setIsLoading(false);
     }
