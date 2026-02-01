@@ -17,6 +17,10 @@ export type Env = {
     owner: string;
     repo: string;
   };
+  discord?: {
+    channelId: string;
+    guildId: string;
+  };
   privateEventJsonPath: string;
   llm?: {
     baseUrl: string;
@@ -63,6 +67,9 @@ export function loadEnv(): Env {
   const githubOwner = process.env.GITHUB_OWNER;
   const githubRepo = process.env.GITHUB_REPO;
 
+  const discordChannelId = process.env.DISCORD_CHANNEL_ID;
+  const discordGuildId = process.env.DISCORD_GUILD_ID;
+
   const llmApiKey = process.env.LLM_API_KEY;
   const llmBaseUrl = process.env.LLM_BASE_URL ?? "https://api.openai.com/v1";
   const llmModel = process.env.LLM_MODEL ?? "gpt-4o-mini";
@@ -84,6 +91,10 @@ export function loadEnv(): Env {
     github:
       githubToken && githubOwner && githubRepo
         ? { token: githubToken, owner: githubOwner, repo: githubRepo }
+        : undefined,
+    discord:
+      discordChannelId && discordGuildId
+        ? { channelId: discordChannelId, guildId: discordGuildId }
         : undefined,
     privateEventJsonPath: process.env.PRIVATE_EVENT_JSON_PATH ?? "./data/private-events.json",
     llm: llmApiKey ? { apiKey: llmApiKey, baseUrl: llmBaseUrl, model: llmModel } : undefined,

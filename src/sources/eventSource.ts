@@ -14,6 +14,17 @@ export type PrivateEvent =
       endTimeSeconds: number;
     }
   | {
+      kind: "discordPrediction";
+      id: string;
+      guildId: string;
+      channelId: string;
+      messageId: string;
+      messageContent: string;
+      author: string;
+      question: string;
+      endTimeSeconds: number;
+    }
+  | {
       kind: "localBooleanSignal";
       id: string;
       /**
