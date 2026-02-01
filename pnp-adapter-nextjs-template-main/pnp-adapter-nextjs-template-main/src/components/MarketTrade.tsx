@@ -346,321 +346,243 @@ export function MarketTrade({ initialMarketAddress = "", initialSide = "yes" }: 
   };
 
   return (
-    <div className="glass-panel p-6 h-full border-l border-white/5 bg-zinc-900/80 backdrop-blur-xl">
-      <h2 className="text-xl font-bold mb-4 text-white">Trade Market</h2>
-      <p className="text-zinc-400 text-sm mb-6">
-        Enter a market address to buy or sell tokens. Works for both V2 and V3 markets.
-      </p>
-
-      <div className="space-y-4">
-        {/* Market Address Input */}
-        <div>
-          <label className="block text-sm font-medium mb-2 text-zinc-300">Market Address</label>
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={marketAddress}
-              onChange={(e) => {
-                setMarketAddress(e.target.value);
-                setMarketInfo(null);
-              }}
-              placeholder="Enter market address..."
-              className="px-4 py-2 bg-black/50 border border-white/10 rounded-lg flex-1 font-mono text-sm text-white focus:outline-none focus:border-indigo-500 transition-colors"
-              disabled={isLoading}
-            />
-            <button
-              type="button"
-              onClick={fetchMarketInfo}
-              disabled={isFetching || isLoading}
-              className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50"
-            >
-              {isFetching ? "..." : "Load"}
-            </button>
-          </div>
-        </div>
-
-        {/* Market Info Display */}
-        {marketInfo && (
-          <div className="p-4 bg-black/40 rounded-lg space-y-3 border border-white/5">
-            <div className="flex justify-between items-center">
-              <span className="text-zinc-400 text-sm">Market Version</span>
-              <span className="font-medium text-emerald-400 font-mono">V{marketInfo.version}</span>
-            </div>
-
-            {/* Collateral Token Info */}
-            <div className="flex justify-between items-center p-3 bg-zinc-800/50 rounded-lg">
-              <div className="flex items-center gap-2">
-                {collateralInfo?.logoURI && (
-                  <img
-                    src={collateralInfo.logoURI}
-                    alt={collateralInfo.symbol}
-                    className="w-6 h-6 rounded-full"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = "none";
-                    }}
-                  />
-                )}
-                <div>
-                  <p className="text-sm font-medium text-white">
-                    {collateralInfo?.symbol || "Collateral Token"}
-                  </p>
-                  <p className="text-xs text-zinc-500">
-                    {collateralInfo?.name || marketInfo.collateralToken.slice(0, 8) + "..."}
-                  </p>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="text-sm font-medium text-white">
-                  {marketInfo.reserves.toLocaleString(undefined, {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2,
-                  })}
-                </p>
-                <p className="text-xs text-zinc-500">Total Reserves</p>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-3 bg-emerald-900/20 border border-emerald-500/20 rounded-lg">
-                <p className="text-emerald-400 text-sm">YES Price</p>
-                <p className="text-xl font-bold text-white">
-                  {(marketInfo.yesPrice * 100).toFixed(1)}%
-                </p>
-              </div>
-              <div className="text-center p-3 bg-rose-900/20 border border-rose-500/20 rounded-lg">
-                <p className="text-rose-400 text-sm">NO Price</p>
-                <p className="text-xl font-bold text-white">
-                  {(marketInfo.noPrice * 100).toFixed(1)}%
-                </p>
-              </div>
-            </div>
-
-            <div className="text-center p-2 bg-zinc-800/30 rounded-lg">
-              <p className="text-zinc-500 text-xs mb-1">Market Status</p>
-              {marketInfo.resolved ? (
-                <span className="text-white font-bold bg-zinc-600 px-3 py-1 rounded-full text-xs">
-                  RESOLVED
-                </span>
-              ) : Math.floor(Date.now() / 1000) >= marketInfo.endTime ? (
-                <span className="text-amber-400 font-bold bg-amber-900/30 border border-amber-800 px-3 py-1 rounded-full text-xs">
-                  CLOSED (AWAITING SETTLEMENT)
-                </span>
-              ) : (
-                <span className="text-emerald-400 font-bold bg-emerald-900/30 border border-emerald-800 px-3 py-1 rounded-full text-xs animate-pulse">
-                  OPEN (ENDS {new Date(marketInfo.endTime * 1000).toLocaleString()})
-                </span>
-              )}
-            </div>
-            {marketInfo.version === 3 && (
-              <p className="text-amber-500 text-xs text-center">
-                V3 markets only support buying. Sell via Redeem after settlement.
-              </p>
-            )}
-
-            {/* Position Limit Warning */}
-            {hasPosition && action === "buy" && (
-              <div className="p-3 bg-indigo-900/30 border border-indigo-500/30 rounded-lg">
-                <p className="text-xs text-indigo-200 text-center">
-                  ℹ️ You have already predicted on this market. You cannot place additional predictions.
-                </p>
-              </div>
-            )}
-
-            {/* User Token Balances */}
-            {userTokenBalances && (
-              <div className="mt-3 p-3 bg-zinc-800/30 rounded-lg">
-                <div className="flex justify-between items-center mb-2">
-                  <p className="text-zinc-400 text-xs">Your Token Holdings</p>
-                  <button
-                    type="button"
-                    onClick={fetchUserTokenBalances}
-                    className="text-xs text-indigo-400 hover:text-indigo-300"
-                  >
-                    Refresh
-                  </button>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="text-center p-2 bg-emerald-900/10 border border-emerald-500/20 rounded">
-                    <p className="text-emerald-400 text-xs">YES Tokens</p>
-                    <p className="text-lg font-bold text-white">
-                      {userTokenBalances.yesBalance.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 4,
-                      })}
-                    </p>
-                  </div>
-                  <div className="text-center p-2 bg-rose-900/10 border border-rose-500/20 rounded">
-                    <p className="text-rose-400 text-xs">NO Tokens</p>
-                    <p className="text-lg font-bold text-white">
-                      {userTokenBalances.noBalance.toLocaleString(undefined, {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 4,
-                      })}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-            {!userTokenBalances && isConnected && (
-              <div className="flex justify-center items-center gap-2 mt-2">
-                <p className="text-zinc-500 text-xs">Loading your token balances...</p>
-                <button
-                  type="button"
-                  onClick={fetchUserTokenBalances}
-                  className="text-xs text-indigo-400 hover:text-indigo-300"
-                >
-                  Retry
-                </button>
-              </div>
-            )}
-            {!isConnected && (
-              <p className="text-zinc-500 text-xs text-center mt-2">
-                Connect wallet to see your token holdings
-              </p>
-            )}
-          </div>
-        )}
-
-        {/* Trade Form - Only show after market is loaded */}
-        {marketInfo && (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Action Toggle - Only for V2 */}
-            {marketInfo.version !== 3 && (
-              <div>
-                <label className="block text-sm font-medium mb-2 text-zinc-300">Action</label>
-                <div className="flex gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setAction("buy")}
-                    className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${action === "buy"
-                      ? "bg-emerald-600 text-white shadow-lg shadow-emerald-500/20"
-                      : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
-                      }`}
-                    disabled={isLoading}
-                  >
-                    Buy
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setAction("sell")}
-                    className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${action === "sell"
-                      ? "bg-rose-600 text-white shadow-lg shadow-rose-500/20"
-                      : "bg-zinc-800 text-zinc-400 hover:bg-zinc-700"
-                      }`}
-                    disabled={isLoading}
-                  >
-                    Sell
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Side Toggle */}
-            <div>
-              <label className="block text-sm font-medium mb-2 text-zinc-300">Side</label>
-              <div className="flex gap-2">
-                <button
-                  type="button"
-                  onClick={() => setSide("yes")}
-                  className={`flex-1 py-3 px-4 rounded-lg font-medium transition-colors ${side === "yes"
-                    ? "bg-emerald-600/20 text-emerald-400 border border-emerald-500/50"
-                    : "bg-zinc-800/50 text-zinc-500 border border-transparent hover:bg-zinc-800"
-                    }`}
-                  disabled={isLoading || (action === 'buy' && hasPosition)}
-                >
-                  YES ({(marketInfo.yesPrice * 100).toFixed(1)}%)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSide("no")}
-                  className={`flex-1 py-3 px-4 rounded-lg font-medium transition-colors ${side === "no"
-                    ? "bg-rose-600/20 text-rose-400 border border-rose-500/50"
-                    : "bg-zinc-800/50 text-zinc-500 border border-transparent hover:bg-zinc-800"
-                    }`}
-                  disabled={isLoading || (action === 'buy' && hasPosition)}
-                >
-                  NO ({(marketInfo.noPrice * 100).toFixed(1)}%)
-                </button>
-              </div>
-            </div>
-
-            {/* Amount */}
-            <div>
-              <div className="flex justify-between items-center mb-2">
-                <label className="text-sm font-medium text-zinc-300">
-                  {action === "sell" && marketInfo.version !== 3
-                    ? `Amount (${side.toUpperCase()} tokens)`
-                    : `Amount (${collateralInfo?.symbol || "Collateral"})`}
-                </label>
-                {action === "sell" && userTokenBalances && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const balance = side === "yes"
-                        ? userTokenBalances.yesBalance
-                        : userTokenBalances.noBalance;
-                      setAmount(balance.toString());
-                    }}
-                    className="text-xs text-indigo-400 hover:text-indigo-300"
-                  >
-                    Max: {(side === "yes"
-                      ? userTokenBalances.yesBalance
-                      : userTokenBalances.noBalance
-                    ).toLocaleString(undefined, { maximumFractionDigits: 4 })}
-                  </button>
-                )}
-                {action === "buy" && usdcBalance !== undefined && (
-                  <span className="text-xs text-zinc-400">
-                    Balance: {usdcBalance.toLocaleString()} {collateralInfo?.symbol || "Tokens"}
-                  </span>
-                )}
-              </div>
+    <div className="h-full relative">
+      <div className="space-y-6">
+        <div className="space-y-4">
+          {/* Market Address Input */}
+          <div>
+            <label className="block text-[10px] uppercase tracking-widest text-phantom mb-2 font-mono-tech">TARGET_ADDRESS</label>
+            <div className="flex gap-2">
               <input
-                type="number"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                placeholder="1"
-                min="0.01"
-                step="0.01"
-                className="px-4 py-3 bg-black/50 border border-white/10 rounded-lg w-full font-mono text-white focus:outline-none focus:border-indigo-500 transition-colors"
+                type="text"
+                value={marketAddress}
+                onChange={(e) => {
+                  setMarketAddress(e.target.value);
+                  setMarketInfo(null);
+                }}
+                placeholder="0x..."
+                className="w-full bg-white/5 border border-white/10 rounded-none px-4 py-3 font-mono-tech text-sm text-white focus:outline-none focus:border-white/30 transition-colors placeholder:text-white/20"
                 disabled={isLoading}
               />
+              <button
+                type="button"
+                onClick={fetchMarketInfo}
+                disabled={isFetching || isLoading}
+                className="px-6 bg-white/10 hover:bg-white/20 text-white text-xs font-mono-tech uppercase tracking-wider transition-colors disabled:opacity-50 border border-white/5"
+              >
+                {isFetching ? "SCANNING" : "LOAD"}
+              </button>
             </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={isLoading || !isConnected || Math.floor(Date.now() / 1000) >= marketInfo.endTime || marketInfo.resolved}
-              className={`w-full py-3 px-4 rounded-lg font-medium transition-colors ${action === "buy" || marketInfo.version === 3
-                ? "bg-green-600 hover:bg-green-700"
-                : "bg-red-600 hover:bg-red-700"
-                } text-white disabled:opacity-50 disabled:cursor-not-allowed`}
-            >
-              {isLoading
-                ? "Processing..."
-                : marketInfo.resolved
-                  ? "Market Resolved"
-                  : Math.floor(Date.now() / 1000) >= marketInfo.endTime
-                    ? "Trading Closed"
-                    : `${marketInfo.version === 3 ? "Buy" : action === "buy" ? "Buy" : "Sell"} ${side.toUpperCase()}`}
-            </button>
-          </form>
-        )}
-
-        {/* Transaction Result */}
-        {txSignature && (
-          <div className="p-4 bg-green-900/20 border border-green-800 rounded-lg">
-            <p className="text-green-400 text-sm mb-2">Transaction successful!</p>
-            <a
-              href={`https://solscan.io/tx/${txSignature}?cluster=devnet`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary text-sm hover:underline break-all"
-            >
-              View on Solscan: {txSignature.slice(0, 20)}...
-            </a>
           </div>
-        )}
+
+          {/* Market Info Display */}
+          {marketInfo && (
+            <div className="space-y-6 animate-in">
+              <div className="p-4 border border-white/10 bg-white/[0.02]">
+                <div className="flex justify-between items-center mb-4">
+                  <span className="text-[10px] text-phantom uppercase tracking-widest">Protocol_Version</span>
+                  <span className="font-mono-tech text-xs text-white">V{marketInfo.version}</span>
+                </div>
+
+                {/* Collateral Token Info */}
+                <div className="flex justify-between items-center mb-6">
+
+                  <div className="flex items-center gap-3">
+                    {collateralInfo?.logoURI && (
+                      <img
+                        src={collateralInfo.logoURI}
+                        alt={collateralInfo.symbol}
+                        className="w-8 h-8 rounded-full grayscale opacity-80"
+                      />
+                    )}
+                    <div>
+                      <p className="text-sm font-bold text-white font-display tracking-wide">
+                        {collateralInfo?.symbol || "UNKNOWN"}
+                      </p>
+                      <p className="text-[10px] text-phantom font-mono-tech">
+                        {collateralInfo?.name || marketInfo.collateralToken.slice(0, 8) + "..."}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm font-mono-tech text-white">
+                      {marketInfo.reserves.toLocaleString(undefined, {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2,
+                      })}
+                    </p>
+                    <p className="text-[10px] text-phantom uppercase">Liquidity</p>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="text-center p-3 border border-signal-win/20 bg-signal-win/5">
+                    <p className="text-[10px] text-signal-win mb-1 uppercase tracking-wider">YES_ODDS</p>
+                    <p className="text-xl font-bold text-white font-mono-tech">
+                      {(marketInfo.yesPrice * 100).toFixed(1)}%
+                    </p>
+                  </div>
+                  <div className="text-center p-3 border border-signal-loss/20 bg-signal-loss/5">
+                    <p className="text-[10px] text-signal-loss mb-1 uppercase tracking-wider">NO_ODDS</p>
+                    <p className="text-xl font-bold text-white font-mono-tech">
+                      {(marketInfo.noPrice * 100).toFixed(1)}%
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* User Token Balances */}
+              {userTokenBalances && (
+                <div className="p-4 border border-white/5 bg-black/40">
+                  <div className="flex justify-between items-center mb-3">
+                    <p className="text-[10px] text-phantom uppercase tracking-widest">Your_Holdings</p>
+                    <button
+                      type="button"
+                      onClick={fetchUserTokenBalances}
+                      className="text-[10px] text-white/50 hover:text-white underline decoration-dotted"
+                    >
+                      REFRESH
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="text-center">
+                      <p className="text-[10px] text-phantom mb-1">POS_YES</p>
+                      <p className="font-mono-tech text-white">
+                        {userTokenBalances.yesBalance.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 4,
+                        })}
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-[10px] text-phantom mb-1">POS_NO</p>
+                      <p className="font-mono-tech text-white">
+                        {userTokenBalances.noBalance.toLocaleString(undefined, {
+                          minimumFractionDigits: 2,
+                          maximumFractionDigits: 4,
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Trade Form - Only show after market is loaded */}
+          {marketInfo && (
+            <form onSubmit={handleSubmit} className="space-y-6 pt-6 border-t border-white/10">
+              {/* Action Toggle - Only for V2 */}
+              {marketInfo.version !== 3 && (
+                <div>
+                  <label className="block text-[10px] uppercase tracking-widest text-phantom mb-3 font-mono-tech">OPERATION</label>
+                  <div className="grid grid-cols-2 gap-1 bg-white/5 p-1">
+                    <button
+                      type="button"
+                      onClick={() => setAction("buy")}
+                      className={`py-2 text-xs font-mono-tech uppercase tracking-wider transition-all ${action === "buy"
+                        ? "bg-white text-black font-bold"
+                        : "text-phantom hover:text-white"
+                        }`}
+                      disabled={isLoading}
+                    >
+                      ACQUIRE
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setAction("sell")}
+                      className={`py-2 text-xs font-mono-tech uppercase tracking-wider transition-all ${action === "sell"
+                        ? "bg-white text-black font-bold"
+                        : "text-phantom hover:text-white"
+                        }`}
+                      disabled={isLoading}
+                    >
+                      LIQUIDATE
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Side Toggle */}
+              <div>
+                <label className="block text-[10px] uppercase tracking-widest text-phantom mb-3 font-mono-tech">PREDICTION</label>
+                <div className="flex gap-4">
+                  <button
+                    type="button"
+                    onClick={() => setSide("yes")}
+                    className={`flex-1 py-4 border transition-all duration-300 relative overflow-hidden group ${side === "yes"
+                      ? "border-signal-win bg-signal-win/10 text-signal-win"
+                      : "border-white/10 text-zinc-500 hover:border-white/30"
+                      }`}
+                    disabled={isLoading || (action === 'buy' && hasPosition)}
+                  >
+                    <span className="relative z-10 font-bold font-display tracking-widest text-sm">YES</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setSide("no")}
+                    className={`flex-1 py-4 border transition-all duration-300 relative overflow-hidden group ${side === "no"
+                      ? "border-signal-loss bg-signal-loss/10 text-signal-loss"
+                      : "border-white/10 text-zinc-500 hover:border-white/30"
+                      }`}
+                    disabled={isLoading || (action === 'buy' && hasPosition)}
+                  >
+                    <span className="relative z-10 font-bold font-display tracking-widest text-sm">NO</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Amount */}
+              <div>
+                <div className="flex justify-between items-center mb-2">
+                  <label className="text-[10px] uppercase tracking-widest text-phantom font-mono-tech">
+                    VOLUME ({collateralInfo?.symbol || "COLLATERAL"})
+                  </label>
+                  {action === "buy" && usdcBalance !== undefined && (
+                    <span className="text-[10px] text-phantom font-mono-tech">
+                      AVAIL: {usdcBalance.toLocaleString()}
+                    </span>
+                  )}
+                </div>
+                <input
+                  type="number"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="0.00"
+                  min="0.01"
+                  step="0.01"
+                  className="w-full bg-transparent border-b border-white/20 px-0 py-3 font-mono-tech text-2xl text-white focus:outline-none focus:border-white transition-colors placeholder:text-white/10"
+                  disabled={isLoading}
+                />
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                disabled={isLoading || !isConnected || Math.floor(Date.now() / 1000) >= marketInfo.endTime || marketInfo.resolved}
+                className={`w-full py-4 font-bold tracking-[0.2em] text-sm transition-all uppercase relative overflow-hidden group ${isLoading ? "bg-zinc-800 text-zinc-500" : "bg-white text-black hover:bg-zinc-200"
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
+              >
+                {isLoading ? "EXECUTING..." : "CONFIRM_TRANSACTION"}
+              </button>
+            </form>
+          )}
+
+          {/* Transaction Result */}
+          {txSignature && (
+            <div className="p-4 border border-signal-win/30 bg-signal-win/5">
+              <p className="text-signal-win text-xs font-mono-tech mb-2">:: TRANSACTION_CONFIRMED ::</p>
+              <a
+                href={`https://solscan.io/tx/${txSignature}?cluster=devnet`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-white/70 text-[10px] font-mono-tech hover:text-white hover:underline break-all"
+              >
+                HASH: {txSignature}
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

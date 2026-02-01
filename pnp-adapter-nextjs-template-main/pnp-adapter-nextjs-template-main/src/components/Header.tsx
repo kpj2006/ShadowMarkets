@@ -11,16 +11,18 @@ export function Header() {
   }, []);
 
   return (
-    <header className="border-b border-zinc-800 bg-zinc-950">
-      <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center font-bold">
-            P
-          </div>
-          <h1 className="text-xl font-bold">ShadowMarkets AI</h1>
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-void/50 backdrop-blur-md">
+      <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="flex items-center gap-4 group cursor-default">
+          <div className="w-2 h-2 bg-signal-win rounded-full animate-pulse group-hover:shadow-[0_0_10px_#22d3ee] transition-shadow"></div>
+          <h1 className="text-sm font-bold tracking-[0.2em] text-white">SHADOW_MARKETS_AI</h1>
         </div>
 
-        {mounted && <WalletMultiButton className="!bg-primary hover:!bg-primary/90" />}
+        {mounted && (
+          <div className="opacity-80 hover:opacity-100 transition-opacity">
+            <WalletMultiButton style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.1)', fontFamily: 'inherit', height: '36px', fontSize: '14px' }} />
+          </div>
+        )}
       </div>
     </header>
   );

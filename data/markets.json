@@ -657,6 +657,58 @@
         "question": "Will issue #103 (“xzdfvdh”) be CLOSED before the deadline?",
         "endTimeSeconds": 1769949073
       }
+    },
+    {
+      "market": "42dUjxjQ7RJF1bmGArpU86CsKQvjXXUQzc9fpcpv4Eia",
+      "signature": "2y3arEB2GtQ77d1TPQka5YbjsYYVQruV1SvSGKwkY4BaaQ1L9oUXYT9t2ABoa8BrtfFUnZAouRMEbeF6mvkYiewX",
+      "createdAtSeconds": 1769949327,
+      "endTimeSeconds": 1769949442,
+      "question": "Will issue #104 (“xcfbfghth”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#104@1769949442",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 104,
+        "yesMeansClosed": true,
+        "question": "Will issue #104 (“xcfbfghth”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769949442
+      }
+    },
+    {
+      "market": "2eph4jX688PueRypK8uyJdcfvWjGXwvC7BmtFBxcwLhX",
+      "signature": "3xQesjWBTA3C4gAHsyotD4wcDKpHCQDehWQHezswoAh6j8MKNecH3ujLGqkRmw3JdBEu1UoiN2xKFYNzbG5QFPvG",
+      "createdAtSeconds": 1769949367,
+      "endTimeSeconds": 1769952964,
+      "question": "Will the following statement be true: \"The price of SOL will reach  by end\"?",
+      "event": {
+        "kind": "discordPrediction",
+        "id": "discord:1347529767548747838:1456621835599876199:1467498707585994864@1769952964",
+        "guildId": "1347529767548747838",
+        "channelId": "1456621835599876199",
+        "messageId": "1467498707585994864",
+        "messageContent": "The price of SOL will reach  by end",
+        "author": "manaus0393_15370",
+        "question": "Will the following statement be true: \"The price of SOL will reach  by end\"?",
+        "endTimeSeconds": 1769952964
+      }
+    },
+    {
+      "market": "Fbmtuc6QBj8QWBdS8FMukz4fD77MmBNSr9Xkvvy5xhP",
+      "signature": "4U5u1sTWcGKcnBdv7ff63CyvwtD42NKzfnN7vsswbmRQ96dvEaUDErs6evh8uM2auBwoaePG6LSDb7JJhQ9Rob4Y",
+      "createdAtSeconds": 1769951030,
+      "endTimeSeconds": 1769951146,
+      "question": "Will issue #105 (“dghthdryh”) be CLOSED before the deadline?",
+      "event": {
+        "kind": "githubIssueWillClose",
+        "id": "github:kpj-2006/test#105@1769951146",
+        "owner": "kpj-2006",
+        "repo": "test",
+        "issueNumber": 105,
+        "yesMeansClosed": true,
+        "question": "Will issue #105 (“dghthdryh”) be CLOSED before the deadline?",
+        "endTimeSeconds": 1769951146
+      }
     }
   ]
 }

@@ -15,16 +15,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased min-h-screen">
+      <body className="antialiased min-h-screen font-mono-tech text-phantom bg-void selection:bg-signal-win selection:text-black">
         <Providers>
           {children}
           <Toaster
             position="bottom-right"
             toastOptions={{
               style: {
-                background: "#18181b",
+                background: "rgba(10, 10, 10, 0.8)",
+                backdropFilter: "blur(12px)",
                 color: "#fff",
-                border: "1px solid #27272a",
+                border: "1px solid rgba(255, 255, 255, 0.05)",
+                fontFamily: "monospace",
               },
             }}
           />

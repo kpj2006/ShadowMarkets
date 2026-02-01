@@ -46,78 +46,74 @@ export function Marketplace({ onTrade }: MarketplaceProps) {
     );
 
     return (
-        <div className="space-y-8 animate-in">
-            <div className="flex justify-between items-end">
+        <div className="space-y-12 animate-in-delayed time-300">
+            <div className="flex justify-between items-end border-b border-white/5 pb-6">
                 <div>
-                    <h2 className="text-3xl font-bold text-white mb-2">Live Predictions</h2>
-                    <p className="text-zinc-400">Trade on the outcome of future AI events.</p>
+                    <h2 className="text-xl font-bold text-white tracking-widest font-display mb-2">LIVE_PREDICTIONS</h2>
+                    <p className="text-phantom font-mono-tech text-xs">Querying distributed consensus...</p>
                 </div>
-                <div className="bg-zinc-900/50 backdrop-blur border border-white/5 px-4 py-2 rounded-lg text-xs font-mono text-zinc-500">
-                    {markets.length} Active Markets
+                <div className="bg-white/5 backdrop-blur px-3 py-1 text-[10px] font-mono-tech text-phantom border border-white/5">
+                    MARKETS_ACTIVE: {markets.length.toString().padStart(2, '0')}
                 </div>
             </div>
 
             {markets.length === 0 ? (
-                <div className="glass-panel p-12 text-center">
-                    <div className="text-6xl mb-4">🤖</div>
-                    <h3 className="text-xl font-bold text-white mb-2">No Active Markets</h3>
-                    <p className="text-zinc-400 mb-6">The AI agents are currently dormant. Check back soon!</p>
+                <div className="glass-panel p-20 text-center border-t border-b border-white/10">
+                    <div className="text-6xl mb-6 opacity-20 filter grayscale">👁️</div>
+                    <h3 className="text-lg font-bold text-white mb-2 font-display tracking-wider">NO_SIGNALS_DETECTED</h3>
+                    <p className="text-phantom font-mono-tech text-xs">The network is silent. Awaiting new data streams.</p>
                 </div>
             ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {markets.map((m) => (
-                        <div key={m.market} className="glass-panel hover:border-indigo-500/30 group relative overflow-hidden flex flex-col h-full">
-                            {/* Decorative gradient glow */}
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 blur-[50px] rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-indigo-500/20 transition-all duration-500"></div>
+                        <div key={m.market} className="group relative bg-black border border-white/10 hover:border-white/20 transition-all duration-500 flex flex-col h-full hover:shadow-[0_0_30px_rgba(255,255,255,0.02)]">
+                            {/* Monolith Glow */}
+                            <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                            <div className="p-6 flex-1">
-                                <div className="flex justify-between items-start mb-4">
-                                    <span className={`text-[10px] font-bold px-2 py-1 rounded border ${m.event.kind === "githubIssueWillClose"
-                                            ? "bg-zinc-800 border-zinc-700 text-zinc-300"
-                                            : "bg-indigo-900/30 border-indigo-500/30 text-indigo-300"
-                                        }`}>
-                                        {m.event.kind === "githubIssueWillClose" ? "GITHUB" : "CUSTOM"}
+                            <div className="p-8 flex-1 relative z-10">
+                                <div className="flex justify-between items-start mb-6">
+                                    <span className="text-[10px] font-mono-tech px-2 py-1 bg-white/5 text-phantom border border-white/10">
+                                        {m.event.kind === "githubIssueWillClose"
+                                            ? "SRC::GITHUB"
+                                            : m.event.kind === "discordPrediction"
+                                                ? "SRC::DISCORD"
+                                                : "SRC::CUSTOM"}
                                     </span>
                                     <div className="text-right">
-                                        <p className="text-[10px] text-zinc-500 uppercase tracking-wider">Ends In</p>
-                                        <p className="text-xs font-mono text-zinc-300">
-                                            {format(new Date(m.endTimeSeconds * 1000), "MMM d, HH:mm")}
+                                        <p className="text-[10px] text-zinc-600 uppercase tracking-widest mb-1">TERMINATION</p>
+                                        <p className="text-xs font-mono-tech text-zinc-400">
+                                            {format(new Date(m.endTimeSeconds * 1000), "yyyy.MM.dd HH:mm")}
                                         </p>
                                     </div>
                                 </div>
 
-                                <h3 className="text-lg font-bold text-white mb-4 leading-tight min-h-[3.5rem]">
+                                <h3 className="text-lg font-bold text-white mb-6 leading-snug min-h-[3.5rem] font-display">
                                     {m.question}
                                 </h3>
 
-                                <div className="flex items-center gap-2 text-xs text-zinc-500 font-mono mb-6">
-                                    <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                                    Live Trading
+                                <div className="flex items-center gap-2 text-[10px] text-signal-win font-mono-tech mb-2">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-signal-win animate-pulse"></div>
+                                    SIGNAL_ACTIVE
                                 </div>
                             </div>
 
-                            <div className="p-4 bg-black/20 border-t border-white/5 mt-auto">
-                                <div className="grid grid-cols-2 gap-3">
+                            <div className="p-6 border-t border-white/5 bg-zinc-950/30 relative z-10">
+                                <div className="grid grid-cols-2 gap-4">
                                     <button
                                         onClick={() => onTrade(m.market, "yes")}
                                         disabled={!isConnected}
-                                        className="group/btn relative overflow-hidden bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/20 hover:border-emerald-500/50 rounded-lg p-3 text-center transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        className="relative overflow-hidden group/btn bg-transparent border border-signal-win/30 hover:border-signal-win/80 hover:bg-signal-win/5 px-4 py-3 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
                                     >
-                                        <p className="text-xs text-emerald-300 mb-1 font-medium">Buy YES</p>
-                                        <span className="absolute inset-0 bg-emerald-400/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></span>
+                                        <span className="text-xs font-base text-signal-win tracking-wider">LONG_YES</span>
                                     </button>
                                     <button
                                         onClick={() => onTrade(m.market, "no")}
                                         disabled={!isConnected}
-                                        className="group/btn relative overflow-hidden bg-red-500/10 hover:bg-red-500/20 border border-red-500/20 hover:border-red-500/50 rounded-lg p-3 text-center transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                        className="relative overflow-hidden group/btn bg-transparent border border-signal-loss/30 hover:border-signal-loss/80 hover:bg-signal-loss/5 px-4 py-3 transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed"
                                     >
-                                        <p className="text-xs text-red-300 mb-1 font-medium">Buy NO</p>
-                                        <span className="absolute inset-0 bg-red-400/10 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300"></span>
+                                        <span className="text-xs font-base text-signal-loss tracking-wider">SHORT_NO</span>
                                     </button>
                                 </div>
-                                {!isConnected && (
-                                    <p className="text-[10px] text-zinc-600 text-center mt-2">Connect wallet to trade</p>
-                                )}
                             </div>
                         </div>
                     ))}
