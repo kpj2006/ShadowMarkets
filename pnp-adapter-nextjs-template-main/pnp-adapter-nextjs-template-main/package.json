@@ -19,7 +19,7 @@
     "@tanstack/react-query": "^5.90.20",
     "bn.js": "^5.2.1",
     "date-fns": "^4.1.0",
-    "next": "15.1.3",
+    "next": "15.1.11",
     "pnp-adapter": "^0.1.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
